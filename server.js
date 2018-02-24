@@ -6,6 +6,7 @@
 // =============================================================
 var express = require("express");
 var bodyParser = require("body-parser");
+var methodOverride = require("method-override");
 
 // Sets up the Express App
 // =============================================================
@@ -24,6 +25,9 @@ app.use(bodyParser.json());
 
 // Static directory
 app.use(express.static("public"));
+
+// Method Override
+app.use(methodOverride('_method'));
 
 // Routes
 // =============================================================
