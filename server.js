@@ -7,11 +7,14 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
+var session = require("express-session");
+var passport = require("./config/passport.js")
 
 // Sets up the Express App
 // =============================================================
 var app = express();
 var PORT = process.env.PORT || 8080;
+var db = require("./models");
 
 // Requiring our models for syncing
 var db = require("./app/models");
