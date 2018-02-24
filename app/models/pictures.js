@@ -1,4 +1,4 @@
-var Item = require('./item.js');
+// var Item = require('./item.js');
 
 module.exports = function(sequelize, DataTypes) {
   var Pictures = sequelize.define("Pictures", {
@@ -6,13 +6,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    itemID: {
+    donationID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Items',
+        model: 'Donations',
         key: 'id'
       }
-    }
+    },
   });
   return Pictures;
 };

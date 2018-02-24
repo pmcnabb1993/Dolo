@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    desc: DataTypes.TEXT,
+    description: DataTypes.TEXT,
     web: {
       type: DataTypes.STRING,
       validate: {
