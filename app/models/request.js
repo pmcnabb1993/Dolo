@@ -3,6 +3,10 @@ var Item = require('./item.js');
 
 module.exports = function(sequelize, DataTypes) {
   var Request = sequelize.define("Request", {
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false

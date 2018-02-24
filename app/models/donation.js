@@ -3,7 +3,7 @@ var Item = require('./item.js');
 
 module.exports = function(sequelize, DataTypes) {
   var Donation = sequelize.define("Donation", {
-    desc: {
+    description: {
       type: DataTypes.TEXT,
       allowNull: false
     },
