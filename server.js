@@ -1,26 +1,46 @@
+// *****************************************************************************
+// Server.js - This file is the initial starting point for the Node/Express server.
+//
+// ******************************************************************************
+// *** Dependencies
+// =============================================================
 var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
+var session = require("express-session");
+var passport = require("./config/passport.js")
 
-var app =  express();
+// Sets up the Express App
+// =============================================================
+var app = express();
 var PORT = process.env.PORT || 8080;
+var db = require("./models");
 
-app.use(bodyParser.urlencoded({extended: false}));
+// Requiring our models for syncing
+var db = require("./app/models");
+
+// Sets up the Express app to handle data parsing
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
 app.use(bodyParser.json());
+
+// Static directory
+app.use(express.static("public"));
+
+// Method Override
 app.use(methodOverride('_method'));
 
-var routes = require('./controllers/Router.js');
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
-app.post('/', function (req, res) {
-  res.send('Got a POST request')
-})
-app.put('/user', function (req, res) {
-  res.send('Got a PUT request at /user')
-})
-app.delete('/user', function (req, res) {
-  res.send('Got a DELETE request at /user')
-})
-app.post('');
-app.listen(PORT);
+// Routes
+// =============================================================
+// require("./routes/api-routes.js")(app);
+// require("./routes/html-routes.js")(app);
+
+// Syncing our sequelize models and then starting our Express app
+// =============================================================
+db.sequelize.sync({ force: true }).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+});
