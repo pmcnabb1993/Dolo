@@ -14,7 +14,7 @@ var passport = require("./app/config/passport.js")
 // =============================================================
 var app = express();
 var PORT = process.env.PORT || 8080;
-var db = require("./models");
+var db = require("./app/models");
 
 // Requiring our models for syncing
 var db = require("./app/models");
@@ -34,8 +34,8 @@ app.use(methodOverride('_method'));
 
 // Routes
 // =============================================================
-// require("./routes/api-routes.js")(app);
-// require("./routes/html-routes.js")(app);
+require("./controllers/api-routes.js")(app);
+require("./controllers/html-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
