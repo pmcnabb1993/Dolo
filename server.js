@@ -34,8 +34,8 @@ app.use(methodOverride('_method'));
 
 // Routes
 // =============================================================
-require("./controllers/api-routes.js")(app);
-require("./controllers/html-routes.js")(app);
+require("./app/routes/api-routes.js")(app);
+// require("./controllers/html-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
