@@ -8,7 +8,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var session = require("express-session");
-var passport = require("./config/passport.js")
+var passport = require("./app/config/passport.js")
 
 // Sets up the Express App
 // =============================================================
