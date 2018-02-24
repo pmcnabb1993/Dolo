@@ -4,7 +4,7 @@ var bcrypt = require("bcrypt-nodejs");
 
 //creating the user model
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('User', {
+  var User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
       allowNull: false
@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     });
-};
+
 
 //Creating a custom method for our User model.  This will check if an unhashed password entered by the user can be compared to the hased password
 //sotred in our database
@@ -78,3 +78,5 @@ User.hook("beforeCreate", function (user) {
 });
 return User;
 var Org = require('./org.js');
+
+};

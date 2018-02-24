@@ -1,13 +1,13 @@
 //Requireing our models and passport as we've configured it
 
-var db = require("../models"); 
-var passport = require("../config/passport");
+var db = require("../app/models"); 
+var passport = require("../app/config/passport");
 
 module.exports = function(app)  {
     //Using the passport.authenticate middleware with our local strategy.
     //If the user has valid login, they will be sent to the member page
     //Otherwise the user will be given an error
-app.post("/api/login", passport.authentication("local"), function(req, res) {
+app.post("/api/login", passport.authenticate("local"), function(req, res) {
     //Since we are doing a post with javascript, we can't actually redirect that post into a GET request
     //So we're the user back the route to the members page because the redirect will happen on the front end
     //They won't get this or even be able to access this if they authenticated
