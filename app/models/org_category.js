@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Category = sequelize.define("Category", {
+  var Org_Category = sequelize.define("Org_Category", {
     name: {
       type: DataTypes.STRING, 
       unique: true,
@@ -10,5 +10,5 @@ module.exports = function(sequelize, DataTypes) {
     createdAt: false,
     updatedAt: false
   });
-  return Category;
+  return Org_Category;
 };
