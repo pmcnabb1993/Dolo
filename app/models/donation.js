@@ -19,10 +19,10 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    categoryID: {
+    item_categoryID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Categories',
+        model: 'Item_Categories',
         key: 'id'
       }
     },
@@ -41,6 +41,8 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations defined here
+        models.Donation.hasOne(models.Item_Category);
+        models.Item_Category.belongsTo(models.Donation);
         models.Donation.hasMany(models.Picture);
         models.Picture.belongsTo(models.Donation);
       } 

@@ -23,10 +23,10 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    categoryID: {
+    item_categoryID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Categories',
+        model: 'Item_Categories',
         key: 'id'
       }
     },
@@ -37,15 +37,14 @@ module.exports = function(sequelize, DataTypes) {
         isIn: [['material', 'service']]
       }
     },
+  }, {
+    classMethods: {
+      associate: function(models) {
+        // associations defined here
+        models.Request.hasOne(models.Item_Category);
+        models.Item_Category.belongsTo(models.Request);
+      }
+    } 
   });
-  // , {
-  //   classMethods: {
-  //     associate: function(models) {
-  //       // associations defined here
-  //       models.Request.hasMany(models.item);
-  //       models.item.belongsTo(models.Request);
-  //     }
-  //   } 
-  // });
   return Request;
 };
