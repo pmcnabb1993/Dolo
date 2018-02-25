@@ -78,7 +78,8 @@ module.exports = function(app) {
       })
     .then(function(dbItem) {
       res.json(dbItem);
-
+    });
+  });
   
     app.get("/api/requests/:id", function(req, res) {
       db.Request.findById(req.params.id).then(data=>res.json(data));
@@ -135,7 +136,7 @@ module.exports = function(app) {
       .catch(err=>res.json(err));
 
     });
-  });
+  
 
   // DELETE route for deleting requet
   app.delete("/api/requests/:id", function(req, res) {
@@ -150,4 +151,4 @@ module.exports = function(app) {
   });
   
 
-};
+}
