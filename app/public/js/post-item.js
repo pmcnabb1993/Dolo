@@ -1,4 +1,4 @@
-// this page is the logic for the add-item/updat-item modal
+// this page is the logic for the add-item/update-item modal
 
 $(document).ready(function() {
   // Gets an optional query string from our url (i.e. ?post_id=23)
