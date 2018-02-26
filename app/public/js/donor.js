@@ -1,24 +1,24 @@
 $(document).ready(function() {
   /* global moment */
-  // blogContainer holds all of our posts
-  var myItemsContainer = $(".item-container");
-  var itemCategorySelect = $("#category");
+  // myItemsContainer holds all of our donated items
+  var myDonationsContainer = $(".donation-container");
+  var donationCategorySelect = $("#category");
   // Click events for the edit and delete buttons
-  $(document).on("click", "button.delete", handleItemDelete);
-  $(document).on("click", "button.edit", handleItemEdit);
-  itemCategorySelect.on("change", handleCategoryChange);
-  var items;
+  $(document).on("click", "button.delete", handleDonationDelete);
+  $(document).on("click", "button.edit", handleDonationEdit);
+  donationCategorySelect.on("change", handleCategoryChange);
+  var donations;
 
-  // This function grabs posts from the database and updates the view
-  function getItems(category) {
+  // This function grabs donations from the database and updates the view
+  function getDonations(category) {
     var categoryString = category || "";
     if (categoryString) {
       categoryString = "/category/" + categoryString;
     }
-    $.get("/api/items" + categoryString, function(data) {
-      console.log("Items", data);
+    $.get("/api/donations" + categoryString, function(data) {
+      console.log("Donations", data);
       posts = data;
-      if (!posts || !posts.length) {
+      if (!donations || !donations.length) {
         displayEmpty();
       }
       else {
@@ -28,93 +28,93 @@ $(document).ready(function() {
   }
 
   // This function does an API call to delete posts
-  function deleteItem(id) {
+  function deleteDonation(id) {
     $.ajax({
       method: "DELETE",
-      url: "/api/items/" + id
+      url: "/api/donations/" + id
     })
     .then(function() {
-      getItems(itemCategorySelect.val());
+      getDonations(donationCategorySelect.val());
     });
   }
 
   // Getting the initial list of posts
-  getItems();
+  getDonations();
   // InitializeRows handles appending all of our constructed post HTML inside
   // blogContainer
   function initializeRows() {
-    myItemsContainer.empty();
-    var itemsToAdd = [];
-    for (var i = 0; i < items.length; i++) {
-      itemsToAdd.push(createNewRow(items[i]));
+    myDonationsContainer.empty();
+    var donationToAdd = [];
+    for (var i = 0; i < donations.length; i++) {
+      donationToAdd.push(createNewRow(donations[i]));
     }
-    myItemsContainer.append(itemsToAdd);
+    myDonationsContainer.append(donationToAdd);
   }
 
   // This function constructs a post's HTML
   function createNewRow(item) {
-    var newItemPanel = $("<div>");
-    newItemPanel.addClass("panel panel-default");
-    var newItemPanelHeading = $("<div>");
-    newItemPanelHeading.addClass("panel-heading");
+    var newDonationPanel = $("<div>");
+    newDonationPanel.addClass("panel panel-default");
+    var newIDonationPanelHeading = $("<div>");
+    newDonationPanelHeading.addClass("panel-heading");
     var deleteBtn = $("<button>");
     deleteBtn.text("x");
     deleteBtn.addClass("delete btn btn-danger");
     var editBtn = $("<button>");
     editBtn.text("EDIT");
     editBtn.addClass("edit btn btn-default");
-    var newItemName = $("<h2>");
-    var newItemDate = $("<small>");
-    var newItemCategory = $("<h5>");
-    newItemCategory.text(item.category);
-    newItemCategory.css({
+    var newDonationName = $("<h2>");
+    var newDonationDate = $("<small>");
+    var newDonationCategory = $("<h5>");
+    newDonationCategory.text(donation.category);
+    newDonationCategory.css({
       float: "right",
       "font-weight": "700",
       "margin-top":
       "-15px"
     });
-    var newItemPanelBody = $("<div>");
-    newItemPanelBody.addClass("panel-body");
-    var newItemDesc = $("<p>");
-    newItemName.text(item.name + " ");
-    newItemDesc.text(item.desc);
-    var formattedDate = new Date(item.createdAt);
+    var newDonationPanelBody = $("<div>");
+    newDonationPanelBody.addClass("panel-body");
+    var newDonationDesc = $("<p>");
+    newDonationName.text(donation.name + " ");
+    newDonationDesc.text(donation.desc);
+    var formattedDate = new Date(donation.createdAt);
     formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
-    newItemDate.text(formattedDate);
-    newItemName.append(newPostDate);
-    newItemPanelHeading.append(deleteBtn);
-    newItemPanelHeading.append(editBtn);
-    newItemPanelHeading.append(newItemName);
-    newItemPanelHeading.append(newItemCategory);
-    newItemPanelBody.append(newItemDesc);
-    newItemPanel.append(newItemPanelHeading);
-    newItemPanel.append(newItemPanelBody);
-    newItemPanel.data("item", item);
-    return newItemPanel;
+    newDonationDate.text(formattedDate);
+    newDonationName.append(newDonationDate);
+    newDonationPanelHeading.append(deleteBtn);
+    newDonationPanelHeading.append(editBtn);
+    newDonationPanelHeading.append(newDonationName);
+    newDonationPanelHeading.append(newCategory);
+    newDonationPanelBody.append(newDonationDesc);
+    newDonationPanel.append(newDonationPanelHeading);
+    newDonationPanel.append(newDonationPanelBody);
+    newDonationPanel.data("item", item);
+    return newDonationPanel;
   }
 
   // This function figures out which post we want to delete and then calls
   // deletePost
-  function handleItemDelete() {
-    var currentItem = $(this)
+  function handleDonationDelete() {
+    var currentDonation = $(this)
       .parent()
       .parent()
-      .data("item");
-    deleteItem(currentItem.id);
+      .data("donation");
+    deleteDonation(currentDonation.id);
   }
 
   // This function figures out which post we want to edit and takes it to the
   // Appropriate url
-  function handleItemEdit() {
-    var currentItem = $(this)
+  function handleDonationEdit() {
+    var currentDonation = $(this)
       .parent()
       .parent()
-      .data("post");
+      .data("donation");
       window.location.href = "#";
       //window.location.href = "/cms?item_id=" + currentItem.id;
   }
 
-  // This function displays a messgae when there are no posts
+  // This function displays a message when there are no posts
   function displayEmpty() {
     itemContainer.empty();
     var messageh2 = $("<h2>");
@@ -125,8 +125,8 @@ $(document).ready(function() {
 
   // This function handles reloading new posts when the category changes
   function handleCategoryChange() {
-    var newItemCategory = $(this).val();
-    getItems(newItemCategory);
+    var newDonationCategory = $(this).val();
+    getDonations(newDonationCategory);
   }
 
 });

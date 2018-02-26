@@ -1,68 +1,70 @@
-// this page is the logic for the add-item/updat-item modal
+// this page is the logic for the add donation/update donation modal
 
 $(document).ready(function() {
   // Gets an optional query string from our url (i.e. ?post_id=23)
   var url = window.location.search;
-  var itemId;
-  // Sets a flag for whether or not we're updating a post to be false initially
+  var donationId;
+  // Sets a flag for whether or not we're updating a donation to be false initially
   var updating = false;
 
-  // If we have this section in our url, we pull out the post id from the url
+  // If we have this section in our url, we pull out the donation id from the url
   // In localhost:8080/cms?post_id=1, postId is 1
-  if (url.indexOf("?item_id=") !== -1) {
-    itemId = url.split("=")[1];
-    getItemData(itemId);
+  if (url.indexOf("?id=") !== -1) {
+    donationId = url.split("=")[1];
+    getDonationData(donationId);
   }
 
   // Getting jQuery references to the post body, title, form, and category select
   var descInput = $("#desc");
-  var nameInput = $("#item-name");
-  var itemForm = $("#item-form");
-  var itemCategorySelect = $("#item-category");
+  var nameInput = $("#donation-name");
+  var donationForm = $("#donation-form");
+  var donationCategorySelect = $("#donation-category");
   // Giving the postCategorySelect a default value
-  itemCategorySelect.val("Other");
+  donationCategorySelect.val("What is our default category?");
   // Adding an event listener for when the form is submitted
-  $(itemForm).on("submit", function handleFormSubmit(event) {
+  $(donationForm).on("submit", function handleFormSubmit(event) {
     event.preventDefault();
-    // Wont submit the post if we are missing a body or a title
+    // Wont submit the donation if we are missing a name or description
     if (!nameInput.val().trim() || !descInput.val().trim()) {
       return;
     }
-    // Constructing a newPost object to hand to the database
-    var newItem = {
-      name: itemNameInput.val().trim(),
+    // Constructing a newDonation object to hand to the database
+    var newDonation = {
+      name: donationNameInput.val().trim(),
       desc: descInput.val().trim(),
-      category: itemCategorySelect.val()
+      category: donationCategorySelect.val()
     };
 
-    console.log(newItem);
+    console.log(newDonation);
 
-    // If we're updating a post run updatePost to update a post
-    // Otherwise run submitPost to create a whole new post
+    // If we're updating a donation run updateDonation
+    // Otherwise run submitDonation to create a new donation
     if (updating) {
-      newItem.id = itemId;
-      updateItem(newItem);
+      newDonation.id = donationId;
+      updateDonation(newDonation);
     }
     else {
-      submitItem(newItem);
+      submitDonation(newDonation);
     }
   });
 
-  // Submits a new post and brings user to blog page upon completion
-  function submitItem(Item) {
-    $.post("/api/items/", Post, function() {
-      window.location.href = "/donor";
+  // Submits a new donation and closes modal
+  function submitDonation(Item) {
+    $.post("/api/donations/", Donation, function() {
+      //not changing pages here - just close modal
+      //but this will reload page and display new donation
+      window.location.href = "/donations";
     });
   }
 
-  // Gets post data for a post if we're editing
-  function getPostData(id) {
-    $.get("/api/items/" + id, function(data) {
+  // Gets donation data if we're editing
+  function getDonationData(id) {
+    $.get("/api/donations/" + id, function(data) {
       if (data) {
         // If this post exists, prefill our cms forms with its data
-        itemNameInput.val(data.name);
+        donationNameInput.val(data.name);
         descInput.val(data.desc);
-        itemCategorySelect.val(data.category);
+        donationCategorySelect.val(data.category);
         // If we have a post with this id, set a flag for us to know to update the post
         // when we hit submit
         updating = true;
@@ -71,14 +73,14 @@ $(document).ready(function() {
   }
 
   // Update a given post, bring user to the blog page when done
-  function updateItem(item) {
+  function updateDonation(item) {
     $.ajax({
       method: "PUT",
-      url: "/api/items",
+      url: "/api/donations",
       data: item
     })
     .then(function() {
-      window.location.href = "/donor";
+      window.location.href = "/donations";
     });
   }
 });
