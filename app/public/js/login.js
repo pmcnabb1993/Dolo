@@ -22,12 +22,14 @@ $(document).ready(function()    {
         passwordInput.val("");
     });
 
-    //loginUser does a post to our "api/login" route and if successfull, redirects us to the members page
+    //loginUser does a post to our "api/login" route and if successful, redirects us to the members page
     function loginUser (email, password)    {
+        console.log("These are our credentials: ", email, password)
         $.post("/api/login", {
             emai: email,
             password: password
         }).then(function(data)  {
+            console.log("This is the user data: ", data);
             window.location.replace(data);
             //If there's an error, log an error
         }).catch(function(err)  {
