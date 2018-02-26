@@ -1,4 +1,5 @@
 var db = require('../models')
+var passport = require("../config/passport.js");
 
 module.exports = function(app) {
 
@@ -108,22 +109,6 @@ module.exports = function(app) {
       .catch(err=>res.json(err));
     });
 
-    app.post("/api/users", function(req, res) {
-      db.User.create({
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
-        donor: req.body.donor,
-        name: req.body.name,
-        phone: req.body.phone,
-        street: req.body.street,
-        city: req.body.city,
-        state: req.body.state,
-        zip: req.body.zip,
-        orgId: req.body.orgId
-      }).then(dbDonation=>res.json(dbDonation))
-      .catch(err=>res.json(err));
-    });
 
     app.post("/api/orgs", function(req, res) {
       console.log(req.body)
@@ -150,5 +135,44 @@ module.exports = function(app) {
     });
   });
   
+  //======================Authenticatoion Routes=========================
+  //===================================================================
+
+    //Using the passport.authenticate middleware with our local strategy.
+    //If the user has valid login, they will be sent to the member page
+    //Otherwise the user will be given an error
+    app.post("/api/login", passport.authenticate("local"), function(req, res) {
+      //Since we are doing a post with javascript, we can't actually redirect that post into a GET request
+      //So we're the user back the route to the members page because the redirect will happen on the front end
+      //They won't get this or even be able to access this if they authenticated
+      res.json("./members.js")
+  });
+
+  app.post("/api/users", function(req, res) {
+    db.User.create({
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      donor: req.body.donor,
+      name: req.body.name,
+      phone: req.body.phone,
+      street: req.body.street,
+      city: req.body.city,
+      state: req.body.state,
+      zip: req.body.zip,
+      orgId: req.body.orgId
+    }).then(dbUser=>res.json(dbUser))
+    // res.redirect(307, "/api/login"); May need to be wrapped in a function
+
+    .catch(err=>res.json(err));
+  });
+
+      //Route for logging user out
+      app.get("/logout", function(req, res)   {
+        req.logout();
+        res.redirect("/");
+    });
+
+    
 
 }
