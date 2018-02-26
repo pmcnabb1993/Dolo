@@ -26,16 +26,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-// Static directory
-app.use(express.static("public"));
+
 
 // Method Override
 app.use(methodOverride('_method'));
 
+// We need to use sessions to keep track of our user's login status
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Static directory
+app.use(express.static('app/public'));
+
 // Routes
 // =============================================================
-require("./controllers/api-routes.js")(app);
-require("./controllers/html-routes.js")(app);
+require("./app/routes/api-routes.js")(app);
+require("./app/routes/html-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================

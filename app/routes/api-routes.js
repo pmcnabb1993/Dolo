@@ -1,7 +1,7 @@
-//Requireing our models and passport as we've configured it
+//Requiring our models and passport as we've configured it
 
-var db = require("../app/models"); 
-var passport = require("../app/config/passport");
+var db = require("../models"); 
+var passport = require("../config/passport.js");
 
 module.exports = function(app)  {
     //Using the passport.authenticate middleware with our local strategy.
@@ -18,9 +18,9 @@ app.post("/api/login", passport.authenticate("local"), function(req, res) {
     //configured our Sequelize User Model.  If the user is created successfully, proceed to log in the user.
     //Otherwise send back an error
     app.post("/api/signup", function(req, res)  {
-        console.log(req, body);
+        console.log(req.body);
         db.User.create({
-            emai: req.body.email,
+            email: req.body.email,
             password: req.body.password
         }).then( function()  {
             res.redirect(307, "/api/login");
