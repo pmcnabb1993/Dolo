@@ -1,14 +1,14 @@
-//Requiring bcrypt for password hasing. Using the bcrypt-nodejs version as the regular bcrypt module
+//Requiring bcrypt for password hashing. Using the bcrypt-nodejs version as the regular bcrypt module
 
 var bcrypt = require("bcrypt-nodejs");
 
 //creating the user model
 module.exports = (sequelize, DataTypes) => {
   var User = sequelize.define('User', {
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+    // username: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false
+    // },
     password: {
       type: DataTypes.STRING,
       allowNull: false
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     phone: DataTypes.STRING,
     street: DataTypes.STRING,
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     zip: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      // allowNull: false,
       validate: {
         isInt: true
       }
@@ -66,9 +66,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
 
-//Creating a custom method for our User model.  This will check if an unhashed password entered by the user can be compared to the hased password
+//Creating a custom method for our User model.  This will check if an unhashed password entered by the user can be compared to the hashed password
 //sotred in our database
 User.prototype.validPassword = function (password) {
+  console.log('This is the password and the hashed password:', password, this.password);
   return bcrypt.compareSync(password, this.password);
 };
 //Hooks are automatic methods that run during various phases of the User Model lifecycle
