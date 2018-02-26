@@ -8,18 +8,18 @@ module.exports = function(app) {
 
     //GET route to return ALL Donations (need?)
     app.get("/api/donations", function(req, res) {
-      db.Donation.findAll({}).then(data=>res.json(dbItem));
+      db.Donation.findAll({}).then(dbDonation=>res.json(dbDonation));
     });
 
     // GET route for returning all Donations of a specific categoryID
-    app.get("/api/donations/category/:item_categoryID", function(req, res) {
+    app.get("/api/donations/:item_categoryID", function(req, res) {
       db.Donation.findAll({
         where: {
-          categoryID: req.params.item_categoryID
+          item_categoryID: req.params.item_categoryID
         }
       })
-      .then(function(dbItem) {
-        res.json(dbItem);
+      .then(function(dbDonation) {
+        res.json(dbDonation);
       });
     });
 
@@ -32,8 +32,8 @@ module.exports = function(app) {
             id: req.body.id
           }
         })
-      .then(function(dbItem) {
-        res.json(dbItem);
+      .then(function(dbDonation) {
+        res.json(dbDonation);
       });
     });
 
@@ -44,8 +44,8 @@ module.exports = function(app) {
           id: req.params.id
         }
       })
-      .then(function(dbItem) {
-        res.json(dbItem);
+      .then(function(dbDonation) {
+        res.json(dbDonation);
       });
     });
 
@@ -54,7 +54,7 @@ module.exports = function(app) {
 
   //GET route to return ALL requests/needs
   app.get("/api/requests", function(req, res) {
-    db.Request.findAll({}).then(data=>res.json(data));
+    db.Request.findAll({}).then(dbRequest=>res.json(dbRequest));
   });
 
   // GET route for returning Organizatiions of a specific category
@@ -64,8 +64,8 @@ module.exports = function(app) {
         category: req.params.item_categoryID
       }
     })
-    .then(function(dbItem) {
-      res.json(dbItem);
+    .then(function(dbRequest) {
+      res.json(dbRequest);
     });
   });
 
@@ -77,8 +77,8 @@ module.exports = function(app) {
           id: req.body.id
         }
       })
-    .then(function(dbItem) {
-      res.json(dbItem);
+    .then(function(dbRequest) {
+      res.json(dbRequest);
     });
   });
   
@@ -130,8 +130,8 @@ module.exports = function(app) {
         id: req.params.id
       }
     })
-    .then(function(dbItem) {
-      res.json(dbItem);
+    .then(function(dbRequest) {
+      res.json(dbRequest);
     });
   });
   
