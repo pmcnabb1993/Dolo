@@ -29,8 +29,9 @@ $(document).ready(function()    {
             email: email,
             password: password
         }).then(function(data)  {
-            console.log("This is the user data: ", data);
-            window.location.replace(data);
+            console.log("The then/promise function is running");
+            // console.log("This is the user data: ", data);
+            window.location.replace("/donations");
             //If there's an error, log an error
         }).catch(function(err)  {
             console.log(err);

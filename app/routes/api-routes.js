@@ -171,10 +171,33 @@ module.exports = function(app) {
     .catch(err=>res.json(err));
   });
 
-  //Route for logging user out
-  app.get("/logout", function(req, res)   {
-    req.logout();
-    res.redirect("/");
+
+      //Route for logging user out
+      app.get("/logout", function(req, res)   {
+        req.logout();
+        res.redirect("/");
+    });
+
+    // Route for getting some data about our user to be used client side
+  app.get("/api/user_data", function(req, res) {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    }
+    else {
+      // Otherwise send back the user's email
+      res.json({
+        name: req.body.name
+      });
+    }
   });
+    
+
+  //Route for logging user out
+//   app.get("/logout", function(req, res)   {
+//     req.logout();
+//     res.redirect("/");
+//   });
+
 
 }
