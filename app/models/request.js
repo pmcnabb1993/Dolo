@@ -1,10 +1,15 @@
-var User = require('./user.js');
-var Item = require('./item.js');
+// var User = require('./user.js');
+// // var Item = require('./item.js');
+// var Category = require('./category.js');
 
 module.exports = function(sequelize, DataTypes) {
   var Request = sequelize.define("Request", {
-    quantity: {
-      type: DataTypes.INTEGER,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    description: {
+      type: DataTypes.TEXT,
       allowNull: false
     },
     closed: {
@@ -18,19 +23,26 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    itemID: {
+    item_categoryID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Items',
+        model: 'Item_Categories',
         key: 'id'
       }
-    }
+    },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isIn: [['material', 'service']]
+      }
+    },
   }, {
     classMethods: {
       associate: function(models) {
         // associations defined here
-        models.Request.hasMany(models.item);
-        models.item.belongsTo(models.Request);
+        models.Request.hasOne(models.Item_Category);
+        models.Item_Category.belongsTo(models.Request);
       }
     } 
   });

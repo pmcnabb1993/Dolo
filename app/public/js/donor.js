@@ -1,132 +1,231 @@
 $(document).ready(function() {
-  /* global moment */
-  // blogContainer holds all of our posts
-  var myItemsContainer = $(".item-container");
-  var itemCategorySelect = $("#category");
-  // Click events for the edit and delete buttons
-  $(document).on("click", "button.delete", handleItemDelete);
-  $(document).on("click", "button.edit", handleItemEdit);
-  itemCategorySelect.on("change", handleCategoryChange);
-  var items;
+ 
+  //=======These are our 2 main HTML containers to display a list of donations or requests=========
+  //==============================================================================================
+  // myDonationsContainer holds all of our donated items
+  var myDonationsContainer = $(".donations-container");
+  // orgRequestsContainer holds all of Org's requests
+  var orgRequestsContainer = $(".requests-container");
+  
+  // click event for adding new donation
+  $(document).on("click", "button.newDonation", handleNewDonation);
 
-  // This function grabs posts from the database and updates the view
-  function getItems(category) {
+  // Org category user selects from dropdown
+  var orgCategorySelect = $("#category");
+  
+  // Click events for donation edit and delete buttons -call edit/deleted functions
+  $(document).on("click", "button.delete", handleDonationDelete);
+  // ***clicking edit will need to fire modal form
+  $(document).on("click", "button.edit", handleDonationEdit);
+
+  // call function handleOrgCategoryChange on category change
+  orgCategorySelect.on("change", handleOrgCategoryChange);
+  
+  // hold individual items
+  var donations;
+  var requests;
+
+  // grabs donations from the database and updates the view
+  // if there are none, call displayEmptyDonations to show message to user
+  function getDonations() {
+    $.get("/api/donations", function(data) {
+      console.log("Donations", data);
+      donations = data;
+      if (!donations || !donations.length) {
+        displayEmptyDonations();
+      }
+      else {
+        initializeDonationsRows();
+      }
+    });
+  }
+
+  // grabs Org requests/needs by category from database and updates the view
+  //***Needs to be by catergoryID***
+  // if there are none, call displayEmptyRequests to show message to user
+  function getRequests(category) {
     var categoryString = category || "";
     if (categoryString) {
       categoryString = "/category/" + categoryString;
     }
-    $.get("/api/items" + categoryString, function(data) {
-      console.log("Items", data);
-      posts = data;
-      if (!posts || !posts.length) {
-        displayEmpty();
+    $.get("/api/requests" + categoryString, function(data) {
+      console.log("Requests", data);
+      requests = data;
+      if (!requests || !requests.length) {
+        displayEmptyRequests();
       }
       else {
-        initializeRows();
+        initializeRequestsRows();
       }
     });
   }
 
-  // This function does an API call to delete posts
-  function deleteItem(id) {
-    $.ajax({
-      method: "DELETE",
-      url: "/api/items/" + id
-    })
-    .then(function() {
-      getItems(itemCategorySelect.val());
-    });
-  }
+  // Getting the list of user's donations
+  //=====================================
+  getDonations();
 
-  // Getting the initial list of posts
-  getItems();
-  // InitializeRows handles appending all of our constructed post HTML inside
-  // blogContainer
-  function initializeRows() {
-    myItemsContainer.empty();
-    var itemsToAdd = [];
-    for (var i = 0; i < items.length; i++) {
-      itemsToAdd.push(createNewRow(items[i]));
+  // initializeDonationsRows handles appending all of our constructed donation HTML inside
+  // myDonationsContainer
+  function initializeDonationsRows() {
+    myDonationsContainer.empty();
+    var donationToAdd = [];
+    for (var i = 0; i < donations.length; i++) {
+      donationToAdd.push(createNewDonationRow(donations[i]));
     }
-    myItemsContainer.append(itemsToAdd);
+    myDonationsContainer.append(donationToAdd);
+  }
+  
+  // initializeRequestsRows handles appending all of our constructed requests/needs HTML inside
+  // orgNeedsContainer
+  function initializeRequestsRows() {
+    orgNeedsContainer.empty();
+    var requestsToAdd = [];
+    for (var i = 0; i < requests.length; i++) {
+      requestsToAdd.push(createNewRequestRow(requests[i]));
+    }
+    orgNeedsContainer.append(requestsToAdd);
   }
 
-  // This function constructs a post's HTML
-  function createNewRow(item) {
-    var newItemPanel = $("<div>");
-    newItemPanel.addClass("panel panel-default");
-    var newItemPanelHeading = $("<div>");
-    newItemPanelHeading.addClass("panel-heading");
+  // construct a donation's HTML
+  // need to work in image thumbnail
+  //===========================================
+  function createNewDonationRow(item) {
+    var newDonationPanel = $("<div>");
+    newDonationPanel.addClass("panel panel-default");
+    var newDonationPanelHeading = $("<div>");
+    newDonationPanelHeading.addClass("panel-heading");
     var deleteBtn = $("<button>");
     deleteBtn.text("x");
     deleteBtn.addClass("delete btn btn-danger");
     var editBtn = $("<button>");
     editBtn.text("EDIT");
     editBtn.addClass("edit btn btn-default");
-    var newItemName = $("<h2>");
-    var newItemDate = $("<small>");
-    var newItemCategory = $("<h5>");
-    newItemCategory.text(item.category);
-    newItemCategory.css({
+    var newDonationName = $("<h2>");
+    var newDonationDate = $("<small>");
+    
+    newDonationName.text(donation.name + " ");
+    var formattedDate = new Date(donation.createdAt);
+    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
+    newDonationDate.text(formattedDate);
+    newDonationName.append(newDonationDate);
+    newDonationPanelHeading.append(deleteBtn);
+    newDonationPanelHeading.append(editBtn);
+    newDonationPanelHeading.append(newDonationName);
+    newDonationPanel.append(newDonationPanelHeading);
+    newDonationPanel.data("donation", donation);
+    return newDonationPanel;
+  }
+
+
+  // construct a request's HTML
+  // need to work in image thumbnail
+  //===========================================
+  function createNewRequestRow(item) {
+    var newRequestPanel = $("<div>");
+    newRequestPanel.addClass("panel panel-default");
+    var newRequestPanelHeading = $("<div>");
+    newRequestPanelHeading.addClass("panel-heading");
+    var deleteBtn = $("<button>");
+    deleteBtn.text("x");
+    deleteBtn.addClass("delete btn btn-danger");
+    var editBtn = $("<button>");
+    editBtn.text("EDIT");
+    editBtn.addClass("edit btn btn-default");
+    var newRequestName = $("<h2>");
+    var newRequestDate = $("<small>");
+    var newRequestCategory = $("<h5>");
+    newRequestCategory.text("Category: " + request.category);
+    newRequestCategory.css({
       float: "right",
       "font-weight": "700",
       "margin-top":
       "-15px"
     });
-    var newItemPanelBody = $("<div>");
-    newItemPanelBody.addClass("panel-body");
-    var newItemDesc = $("<p>");
-    newItemName.text(item.name + " ");
-    newItemDesc.text(item.desc);
-    var formattedDate = new Date(item.createdAt);
+    var newRequestPanelBody = $("<div>");
+    newRequestPanelBody.addClass("panel-body");
+    var newRequestDesc = $("<p>");
+    newRequestName.text(request.name + " ");
+    newRequestDesc.text(request.desc);
+    var formattedDate = new Date(request.createdAt);
     formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
-    newItemDate.text(formattedDate);
-    newItemName.append(newPostDate);
-    newItemPanelHeading.append(deleteBtn);
-    newItemPanelHeading.append(editBtn);
-    newItemPanelHeading.append(newItemName);
-    newItemPanelHeading.append(newItemCategory);
-    newItemPanelBody.append(newItemDesc);
-    newItemPanel.append(newItemPanelHeading);
-    newItemPanel.append(newItemPanelBody);
-    newItemPanel.data("item", item);
-    return newItemPanel;
+    newRequestDate.text(formattedDate);
+    newRequestName.append(newRequestDate);
+    newRequestPanelHeading.append(deleteBtn);
+    newRequestPanelHeading.append(editBtn);
+    newRequestPanelHeading.append(newRequestName);
+    newRequestPanelHeading.append(newCategory);
+    newRequestPanelBody.append(newRequestDesc);
+    newRequestPanel.append(newRequestPanelHeading);
+    newRequestPanel.append(newRequestPanelBody);
+    newRequestPanel.data("request", request);
+    return newRequestPanel;
   }
 
-  // This function figures out which post we want to delete and then calls
-  // deletePost
-  function handleItemDelete() {
-    var currentItem = $(this)
+  // add new donation
+  function handleDonationEdit() {
+    var currentDonation = $(this)
       .parent()
       .parent()
-      .data("item");
-    deleteItem(currentItem.id);
+      .data("donation");
+      window.location.href = "#";
+      //not sending to a new window - we're firing the modal form
+      //window.location.href = "/cms?item_id=" + currentItem.id;
   }
 
-  // This function figures out which post we want to edit and takes it to the
-  // Appropriate url
-  function handleItemEdit() {
-    var currentItem = $(this)
+  // figure out which donation we want to edit 
+  function handleDonationEdit() {
+    var currentDonation = $(this)
       .parent()
       .parent()
-      .data("post");
+      .data("donation");
       window.location.href = "#";
       //window.location.href = "/cms?item_id=" + currentItem.id;
   }
 
-  // This function displays a messgae when there are no posts
-  function displayEmpty() {
-    itemContainer.empty();
-    var messageh2 = $("<h2>");
-    messageh2.css({ "text-align": "center", "margin-top": "50px" });
-    messageh2.html("Local organizations are in need!, click <a href='#'>here (fire 'add-item' modal) </a> to post an item.");
-    itemContainer.append(messageh2);
+  // figure out which donation we want to delete and then calls
+  // deleteDonation
+  function handleDonationDelete() {
+    var currentDonation = $(this)
+      .parent()
+      .parent()
+      .data("donation");
+    deleteDonation(currentDonation.id);
   }
 
-  // This function handles reloading new posts when the category changes
-  function handleCategoryChange() {
-    var newItemCategory = $(this).val();
-    getItems(newItemCategory);
+  // This function does an API call to delete donation
+  // then calls function getDonations to re-write all remaining donations to DOM
+  function deleteDonation(id) {
+    $.ajax({
+      method: "DELETE",
+      url: "/api/donations/" + id
+    })
+    .then(function() {
+      getDonations();
+    });
+  }
+
+  // displays a message when there are no donations to list on the DOM
+  function displayEmptyDonations() {
+    myDonationsContainer.empty();
+    var messageDonor = $("<h2>");
+    messageDonor.css({ "text-align": "center", "margin-top": "50px" });
+    messageDonor.html("Local organizations are in need!, click <a href='#'>here (fire 'add-item' modal) </a> to post a donation.");
+    myDonationsContainer.append(messageDonor);
+  }
+
+  // displays a message when there are no requests/needs to list on the DOM
+  function displayEmptyRequests() {
+    orgRequestsContainer.empty();
+    var messageOrg = $("<h2>");
+    messageOrg.css({ "text-align": "center", "margin-top": "50px" });
+    messageOrg.html("Find a local organization in need. Search by category above.");
+    orgRequestsContainer.append(messageOrg);
+  }
+
+  // This function handles reloading new requests/needs when Org category changes
+  function handleOrgCategoryChange() {
+    var newOrgCategory = $(this).val();
+    getRequests(newOrgCategory);
   }
 
 });

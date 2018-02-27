@@ -1,9 +1,14 @@
-var User = require('./user.js');
-var Item = require('./item.js');
+// var User = require('./user.js');
+// // var Item = require('./item.js');
+// var Category = require('./category.js');
 
 module.exports = function(sequelize, DataTypes) {
   var Donation = sequelize.define("Donation", {
-    desc: {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    description: {
       type: DataTypes.TEXT,
       allowNull: false
     },
@@ -14,19 +19,32 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    itemID: {
+    item_categoryID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Items',
+        model: 'Item_Categories',
         key: 'id'
       }
-    }
+    },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isIn: [['material', 'service']]
+      }
+    },
+    closed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
   }, {
     classMethods: {
       associate: function(models) {
         // associations defined here
-        models.Donation.hasMany(models.item);
-        models.item.belongsTo(models.Donation);
+        models.Donation.hasOne(models.Item_Category);
+        models.Item_Category.belongsTo(models.Donation);
+        models.Donation.hasMany(models.Picture);
+        models.Picture.belongsTo(models.Donation);
       } 
     }
   });
