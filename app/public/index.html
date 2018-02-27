@@ -14,7 +14,7 @@
   <style>
     #dolo {
       object-fit: cover;
-      height: 75px;
+      height: 60px;
       width: 100%;
     }
     .box-title {
@@ -52,7 +52,7 @@
   <section class="hero is-medium is-bold">
     <!-- Navbar start -->
     <div class="hero-head is-light">
-      <nav class="navbar">
+      <nav class="navbar border-shadow">
         <div class="container">
           <div class="navbar-brand">
               <a>
@@ -64,6 +64,8 @@
               <span></span>
             </span>
           </div>
+
+          <!-- Donation tab -->
           <div id="navbarMenu" class="navbar-menu">
             <div class="navbar-end">
               <div class="navbar-item has-dropdown is-hoverable">
@@ -71,7 +73,7 @@
                   Donate
                  </a>
                  <div class="navbar-dropdown">
-                    <a class="navbar-item" href="./donor.html">
+                    <a class="navbar-item" href="./donate.html">
                       Donor Profile
                     </a>
                     <a class="navbar-item">
@@ -80,14 +82,30 @@
                   </div>
                 </div>
             </div>
-              <a class="navbar-item">
-                Organizations
-              </a>
+
+            <!-- Organization tab -->
+            <div class="navbar">
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-item">
+                    Organizations
+                   </a>
+                   <div class="navbar-dropdown">
+                      <a class="navbar-item" href="./organization.html">
+                        Org Profile
+                      </a>
+                      <a class="navbar-item">
+                        Search Donations
+                      </a>
+                    </div>
+                  </div>
+              </div>
+
+          <!-- About tab -->
               <a class="navbar-item" href="./about.html">
                 About Us
               </a>
               <span class="navbar-item">
-                <a class="button is-black is-outlined is-small" href="./login.html">
+                <a class="button is-info is-outlined is-small" href="./login.html">
                   <span class="icon">
                       <i class="fa fa-sign-out" aria-hidden="true"></i>
                   </span>
@@ -117,22 +135,30 @@
                 <div class="column is-4">
                     <div class="box hero border-shadow is-signup">
                         <div class="box-body">
+                            <span class="icon">
+                                <i class="fa fa-user fa-lg" aria-hidden="true"></i>
+                            </span>
                           <h2 class="box-title is-left">Individual Sign In</h2>
-                          <p>As a organization you can create </p>
+                          <p>As an individual you can donate items that nonprofit organizations in your local communities might need. </p>
                         </div>
                         <div class="box-footer">
-                          <a class="button is-info is-outlined is-small is-wide" href="./login.html">Get Started</a>
+                          <br>
+                          <a class="button is-info is-focused is-outlined is-small is-wide" href="./login.html">Get Started</a>
                         </div>
                       </div>
                 </div> 
                 <div class="column is-4">
                   <div class="box hero border-shadow is-signup ">
                     <div class="box-body">
+                        <span class="icon">
+                            <i class="fa fa-users fa-lg" aria-hidden="true"></i>
+                        </span>
                       <h2 class="box-title">Organization Sign In</h2>
-                      <p></p>
+                      <p>As an organization you can submit requests for items that are needed or search through our donation posts. </p>
                     </div>
                     <div class="box-footer is-right">
-                      <a class="button is-info is-outlined is-small is-right" href="./login.html">Get Started</a>
+                      <br>
+                      <a class="button is-info is-focused is-outlined is-small is-right" href="./login.html">Get Started</a>
                     </div>
                   </div>
                 </div>
