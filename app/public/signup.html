@@ -1,100 +1,295 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <!-- Bulma Version 0.6.0 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css" integrity="sha256-HEtF7HLJZSC3Le1HcsWbz1hDYFPZCqDhZa9QsCgVUdw=" crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" href="styles/style.css">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
-    <title>Signup Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
-    <link href="./styles/style.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+  <style>
+    #dolo {
+      object-fit: cover;
+      height: 75px;
+      width: 100%;
+    }
+    .signup{
+        margin-top: 1rem;
+        margin-left: 10rem;
+        
+    }
+  </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
+<!-- Navbar start -->
+<div class="hero-head is-light">
+        <nav class="navbar">
+          <div class="container">
+            <div class="navbar-brand">
+                <a>
+                <img src="assets/img/dolo.png" id="dolo" alt="Logo">
+              </a>
+              <span class="navbar-burger burger" data-target="navbarMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
             </div>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <h2>Sign Up Form</h2>
-                <form class="signup">
-                    <div class="form-group">
-                        <label for="inputEmail">Email Address</label>
-                        <input type="email" class="form-control" id="email-input" placeholder="Email">
+            <div id="navbarMenu" class="navbar-menu">
+              <div class="navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-item">
+                    Donate
+                   </a>
+                   <div class="navbar-dropdown">
+                      <a class="navbar-item" href="./donor.html">
+                        Donor Profile
+                      </a>
+                      <a class="navbar-item">
+                        Search Organizations
+                      </a>
                     </div>
+                  </div>
+              </div>
+                <a class="navbar-item">
+                  Organizations
+                </a>
+                <a class="navbar-item" href="./about.html">
+                  About Us
+                </a>
+                <span class="navbar-item">
+                  <a class="button is-black is-outlined is-small" href="./login.html">
+                    <span class="icon">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </span>
+                    <span id="signin">Sign In</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
 
-                    <div class="form-group">
-                        <label for="inputPassword">Password</label>
-                        <input type="password" class="form-control" id="password-input" placeholder="Password">
-                    </div>
+      <!-- Navbar end -->
+      <div class="section has-text-centered">
+          <h2 class="title">Sign Up Today!</h2>
+      </div>
+      
+      <!-- Form Begin -->
+      <div class="container is centered">
+        <div class="column is-6">
+      <form class="signup" id="signup">
 
-                    <div style="display: none" id="alert" class="alert alert-danger" role="alert">
-                        <span class "glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span>
-                        <span class="msg"></span>
-                    </div>
-
-                    <!-- <div class="form-group">
-                        <label for="inputPassword">Password</label>
-                        <input type="password" class="form-control" id="password-input2" placeholder="Re-enter Password">
-                    </div>
-
-                    <div style="display: none" id="alert" class="alert alert-danger" role="alert">
-                        <span class "glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span>
-                        <span class="msg"></span> -->
-                    <!-- </div> -->
-
-                    <div class="form-group">
-                        <label for="text">Name</label>
-                        <input type="name" class="form-control" id="name-input" placeholder="Name">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputPhone">Phone</label>
-                        <input type="text" class="form-control" id="phone-input" placeholder="Enter Phone Number">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputStreet">Street</label>
-                        <input type="text" class="form-control" id="street-input" placeholder="Street">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="city-input" placeholder="City">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputState">State</label>
-                        <input type="text" class="form-control" id="state-input" placeholder="State">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" id="zip-input" placeholder="Zip">
-                    </div>
-
-
-                    <button type="submit" class="btn btn-defaul">Sign Up</button>
-                </form>
-
-                <br />
-                <p>Log in
-                    <a href="/login">here</a>
+      <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Name</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control is-expanded has-icons-left">
+                  <input class="input" type="text" id="name-input" placeholder="First and Last">
+                  <span class="icon is-small is-left">
+                    <i class="fa fa-user"></i>
+                  </span>
                 </p>
+              </div>
+              </div>
             </div>
-        </div>
+            <div class="field is-horizontal">
+              <div class="field-label">
+                  <label class="label">Email</label>
+                </div>
+              <div class="field-body">
+                <div class="field">
+                <p class="control is-expanded has-icons-left has-icons-right">
+                  <input class="input" type="email" id="email-input" placeholder="example@email.com">
+                  <span class="icon is-small is-left">
+                    <i class="fa fa-envelope"></i>
+                  </span>
+                </p>
+              </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <label class="label">Password</label>
+                  </div>
+                <div class="field-body">
+                  <div class="field">
+                  <p class="control is-expanded has-icons-left has-icons-right">
+                    <input class="input" type="password" id="password-input" placeholder="abc123!#$">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+                </div>
+              </div>
+
+          
+          <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Number</label>
+            </div>
+            <div class="field-body">
+              <div class="field is-expanded">
+                <div class="field has-addons">
+                  <p class="control">
+                    <a class="button is-static">
+                      +1
+                    </a>
+                  </p>
+                  <p class="control is-expanded">
+                    <input class="input" type="tel" id="phone-input" placeholder="Your phone number">
+                  </p>
+                </div>
+                <p class="help">Please include your area code. </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Street</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control is-expanded ">
+                    <input class="input" type="text" id="street-input" placeholder="1200 Congress Ave">
+                  </p>
+                </div>
+                </div>
+              </div>
+
+              <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">City</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control is-expanded ">
+                        <input class="input" type="text" id="city-input" placeholder="Austin">
+                      </p>
+                    </div>
+                    </div>
+                  </div>
+
+                  <div class="field is-horizontal">
+                      <div class="field-label is-normal">
+                        <label class="label">State</label>
+                      </div>
+                      <div class="field-body">
+                        <div class="field">
+                          <p class="control is-expanded ">
+                            <input class="input" type="text" id="state-input" placeholder="Texas">
+                          </p>
+                        </div>
+                        </div>
+                      </div>
+
+                      <div class="field is-horizontal">
+                          <div class="field-label is-normal">
+                            <label class="label">Zip</label>
+                          </div>
+                          <div class="field-body">
+                            <div class="field">
+                              <p class="control is-expanded ">
+                                <input class="input" type="text" id="zip-input" placeholder="78701">
+                              </p>
+                            </div>
+                            </div>
+                          </div>
+          
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Occupation</label>
+            </div>
+            <div class="field-body">
+              <div class="field is-narrow">
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select>
+                      <option>Student</option>
+                      <option>Healthcare</option>
+                      <option>Non-Profit</option>
+                      <option>Management</option>
+                      <option>Marketing</option>
+                      <option>Sales</option>
+                      <option>Freelance</option>
+                      <option>Art/Design</option>
+                      <option>Government</option>
+                      <option>Engineering</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="field is-horizontal">
+            <div class="field-label">
+              <label class="label">Example Question</label>
+            </div>
+            <div class="field-body">
+              <div class="field is-narrow">
+                <div class="control">
+                  <label class="radio">
+                    <input type="radio" name="member">
+                    Yes
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="member">
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+            </div>
+          
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Question</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <textarea class="textarea" placeholder="Optional: Explain how we can help you."></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
+        <div class="field is-horizontal">
+            <div class="control">
+              <label class="checkbox">
+                <input type="checkbox">
+                I agree to the <a href="#">terms and conditions</a>
+              </label>
+            </div>
+          </div>
+          
+          <div class="field is-horizontal is-grouped">
+            <div class="control">
+              <button class="button is-info" type="submit">Sign Up</button>
+            </div>
+            <div class="control">
+              <button class="button is-text">Cancel</button>
+            </div>
+          </div>
+
+      </form>
     </div>
+    </div>
+          <!-- Form end -->
+
 
     <script type="text/javascript" src="js/signup.js"></script>
 

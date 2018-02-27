@@ -3,6 +3,19 @@ var passport = require("../config/passport.js");
 
 module.exports = function(app) {
 
+
+  //CREATE ORG
+  app.post("/api/orgs", function(req, res) {
+    console.log(req.body)
+    db.Org.create({
+      name: req.body.name,
+      description: req.body.description,
+      web: req.body.web,
+      org_categoryID: req.body.org_categoryID
+    }).then(dbOrg=>res.json(dbOrg))
+    .catch(err=>res.json(err));
+  });
+
   //======================Donation Routes========================
   //=============================================================
 
@@ -23,6 +36,17 @@ module.exports = function(app) {
       });
     });
 
+    // CREATE a donation
+    app.post("/api/donations", function(req, res) {
+      db.Donation.create({
+        name: req.body.name,
+        description: req.body.description,
+        uid: req.body.uid,
+        item_categoryID: req.body.item_categoryID,
+        type: req.body.type
+      }).then(dbDonation=>res.json(dbDonation))
+      .catch(err=>res.json(err));
+    });
 
     // PUT route for updating Donation
     app.put("/api/donations", function(req, res) {
@@ -69,6 +93,19 @@ module.exports = function(app) {
     });
   });
 
+  //CREATE Request
+  app.post("/api/requests", function(req, res) {
+    console.log(req.body)
+    db.Request.create({
+      name: req.body.name,
+      description: req.body.description,
+      uid: req.body.uid,
+      item_categoryID: req.body.item_categoryID,
+      type: req.body.type
+    }).then(dbRequest=>res.json(dbRequest))
+    .catch(err=>res.json(err));
+  });
+
   // PUT route for updating request
   app.put("/api/requests", function(req, res) {
     db.Request.update(req.body,
@@ -82,46 +119,9 @@ module.exports = function(app) {
     });
   });
   
-    app.get("/api/requests/:id", function(req, res) {
-      db.Request.findById(req.params.id).then(data=>res.json(data));
-    });
-  
-    app.post("/api/requests", function(req, res) {
-      console.log(req.body)
-      db.Request.create({
-        name: req.body.name,
-        description: req.body.description,
-        uid: req.body.uid,
-        item_categoryID: req.body.item_categoryID,
-        type: req.body.type
-      }).then(dbRequest=>res.json(dbRequest))
-      .catch(err=>res.json(err));
-    });
-
-    app.post("/api/donations", function(req, res) {
-      db.Donation.create({
-        name: req.body.name,
-        description: req.body.description,
-        uid: req.body.uid,
-        item_categoryID: req.body.item_categoryID,
-        type: req.body.type
-      }).then(dbDonation=>res.json(dbDonation))
-      .catch(err=>res.json(err));
-    });
-
-
-    app.post("/api/orgs", function(req, res) {
-      console.log(req.body)
-      db.Org.create({
-        name: req.body.name,
-        description: req.body.description,
-        web: req.body.web,
-        org_categoryID: req.body.org_categoryID
-      }).then(dbDonation=>res.json(dbDonation))
-      .catch(err=>res.json(err));
-
-    });
-  
+  app.get("/api/requests/:id", function(req, res) {
+    db.Request.findById(req.params.id).then(data=>res.json(data));
+  });
 
   // DELETE route for deleting requet
   app.delete("/api/requests/:id", function(req, res) {
@@ -150,7 +150,6 @@ module.exports = function(app) {
   
   app.post('/api/login', (req, res) => passport.authenticate('local', { 
     successRedirect: '/donations', failureRedirect: '/signup',
-  
   })(req, res));
 
   app.post("/api/users", function(req, res) {
@@ -172,6 +171,7 @@ module.exports = function(app) {
     .catch(err=>res.json(err));
   });
 
+
       //Route for logging user out
       app.get("/logout", function(req, res)   {
         req.logout();
@@ -192,5 +192,12 @@ module.exports = function(app) {
     }
   });
     
+
+  //Route for logging user out
+//   app.get("/logout", function(req, res)   {
+//     req.logout();
+//     res.redirect("/");
+//   });
+
 
 }
