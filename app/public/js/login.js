@@ -26,7 +26,7 @@ $(document).ready(function()    {
     function loginUser (email, password)    {
         console.log("These are our credentials: ", email, password)
         $.post("/api/login", {
-            emai: email,
+            email: email,
             password: password
         }).then(function(data)  {
             console.log("This is the user data: ", data);
