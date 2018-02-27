@@ -46,7 +46,7 @@ module.exports = function (app) {
         console.log("Where hit the signup route");
         //If the user already has an account send them to the members page
         if (req.user) {
-            res.redirect("/members");
+            res.redirect("/donations");
         }
         res.sendFile(path.join(__dirname, "../public/signup.html"));
     });

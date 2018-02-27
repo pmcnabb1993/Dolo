@@ -75,6 +75,7 @@ User.prototype.validPassword = function (password) {
 //Hooks are automatic methods that run during various phases of the User Model lifecycle
 //IN this case, before a User is created, we will automatically hash their password
 User.hook("beforeCreate", function (user) {
+  console.log('The  User.hook is running');
   user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
 });
 return User;

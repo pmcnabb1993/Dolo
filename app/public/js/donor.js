@@ -1,18 +1,30 @@
-$(document).ready(function() {
- 
+$(document).ready(function () {
+
+  //This file just does a GET request to figure out which user is logged in
+  //and updates the HTML on the page
+
+  $.get("/api/user_data").then(function (data) {
+    $(".user-name").text(data.name);
+    console.log("The user name is: ", data);
+  });
+
+
+
+
+
   //=======These are our 2 main HTML containers to display a list of donations or requests=========
   //==============================================================================================
   // myDonationsContainer holds all of our donated items
   var myDonationsContainer = $(".donations-container");
   // orgRequestsContainer holds all of Org's requests
   var orgRequestsContainer = $(".requests-container");
-  
+
   // click event for adding new donation
   $(document).on("click", "button.newDonation", handleNewDonation);
 
   // Org category user selects from dropdown
   var orgCategorySelect = $("#category");
-  
+
   // Click events for donation edit and delete buttons -call edit/deleted functions
   $(document).on("click", "button.delete", handleDonationDelete);
   // ***clicking edit will need to fire modal form
@@ -20,7 +32,7 @@ $(document).ready(function() {
 
   // call function handleOrgCategoryChange on category change
   orgCategorySelect.on("change", handleOrgCategoryChange);
-  
+
   // hold individual items
   var donations;
   var requests;
@@ -28,7 +40,7 @@ $(document).ready(function() {
   // grabs donations from the database and updates the view
   // if there are none, call displayEmptyDonations to show message to user
   function getDonations() {
-    $.get("/api/donations", function(data) {
+    $.get("/api/donations", function (data) {
       console.log("Donations", data);
       donations = data;
       if (!donations || !donations.length) {
@@ -48,7 +60,7 @@ $(document).ready(function() {
     if (categoryString) {
       categoryString = "/category/" + categoryString;
     }
-    $.get("/api/requests" + categoryString, function(data) {
+    $.get("/api/requests" + categoryString, function (data) {
       console.log("Requests", data);
       requests = data;
       if (!requests || !requests.length) {
@@ -74,7 +86,7 @@ $(document).ready(function() {
     }
     myDonationsContainer.append(donationToAdd);
   }
-  
+
   // initializeRequestsRows handles appending all of our constructed requests/needs HTML inside
   // orgNeedsContainer
   function initializeRequestsRows() {
@@ -102,7 +114,7 @@ $(document).ready(function() {
     editBtn.addClass("edit btn btn-default");
     var newDonationName = $("<h2>");
     var newDonationDate = $("<small>");
-    
+
     newDonationName.text(donation.name + " ");
     var formattedDate = new Date(donation.createdAt);
     formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
@@ -139,7 +151,7 @@ $(document).ready(function() {
       float: "right",
       "font-weight": "700",
       "margin-top":
-      "-15px"
+        "-15px"
     });
     var newRequestPanelBody = $("<div>");
     newRequestPanelBody.addClass("panel-body");
@@ -167,9 +179,9 @@ $(document).ready(function() {
       .parent()
       .parent()
       .data("donation");
-      window.location.href = "#";
-      //not sending to a new window - we're firing the modal form
-      //window.location.href = "/cms?item_id=" + currentItem.id;
+    window.location.href = "#";
+    //not sending to a new window - we're firing the modal form
+    //window.location.href = "/cms?item_id=" + currentItem.id;
   }
 
   // figure out which donation we want to edit 
@@ -178,8 +190,8 @@ $(document).ready(function() {
       .parent()
       .parent()
       .data("donation");
-      window.location.href = "#";
-      //window.location.href = "/cms?item_id=" + currentItem.id;
+    window.location.href = "#";
+    //window.location.href = "/cms?item_id=" + currentItem.id;
   }
 
   // figure out which donation we want to delete and then calls
@@ -199,9 +211,9 @@ $(document).ready(function() {
       method: "DELETE",
       url: "/api/donations/" + id
     })
-    .then(function() {
-      getDonations();
-    });
+      .then(function () {
+        getDonations();
+      });
   }
 
   // displays a message when there are no donations to list on the DOM
