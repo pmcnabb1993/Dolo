@@ -101,13 +101,13 @@ $(document).ready(function() {
     editBtn.text("EDIT");
     editBtn.addClass("edit btn btn-default");
     var newDonationName = $("<h2>");
-    var newDonationDate = $("<small>");
+    // var newDonationDate = $("<small>");
     
     newDonationName.text(donation.name + " ");
-    var formattedDate = new Date(donation.createdAt);
-    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
-    newDonationDate.text(formattedDate);
-    newDonationName.append(newDonationDate);
+    // var formattedDate = new Date(donation.createdAt);
+    // formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
+    // newDonationDate.text(formattedDate);
+    // newDonationName.append(newDonationDate);
     newDonationPanelHeading.append(deleteBtn);
     newDonationPanelHeading.append(editBtn);
     newDonationPanelHeading.append(newDonationName);
@@ -132,7 +132,7 @@ $(document).ready(function() {
     editBtn.text("EDIT");
     editBtn.addClass("edit btn btn-default");
     var newRequestName = $("<h2>");
-    var newRequestDate = $("<small>");
+    // var newRequestDate = $("<small>");
     var newRequestCategory = $("<h5>");
     newRequestCategory.text("Category: " + request.category);
     newRequestCategory.css({
@@ -146,10 +146,10 @@ $(document).ready(function() {
     var newRequestDesc = $("<p>");
     newRequestName.text(request.name + " ");
     newRequestDesc.text(request.desc);
-    var formattedDate = new Date(request.createdAt);
-    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
-    newRequestDate.text(formattedDate);
-    newRequestName.append(newRequestDate);
+    // var formattedDate = new Date(request.createdAt);
+    // formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
+    // newRequestDate.text(formattedDate);
+    // newRequestName.append(newRequestDate);
     newRequestPanelHeading.append(deleteBtn);
     newRequestPanelHeading.append(editBtn);
     newRequestPanelHeading.append(newRequestName);
