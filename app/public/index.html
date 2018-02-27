@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Donation Location</title>
+  <title>Donation Location Home Page</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <!-- Bulma Version 0.6.0 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css" integrity="sha256-HEtF7HLJZSC3Le1HcsWbz1hDYFPZCqDhZa9QsCgVUdw=" crossorigin="anonymous" />
-  <link rel="stylesheet" type="text/css" href="./styles/style.css">
+  <link rel="stylesheet" type="text/css" href="styles/style.css">
 
   <style>
     #dolo {
@@ -17,13 +17,41 @@
       height: 75px;
       width: 100%;
     }
+    .box-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    #subtitle1 {
+      text-align: center;
+      margin-left: 12rem;
+      margin-right: 12rem;
+    }
+    #sponsors {
+      background: hsla(0,0%,100%,.1);
+      padding: 10px 0;
+      text-align: center;
+      position: relative;
+    }
+    .logo2 {
+      max-width: 140px;
+      max-height: 60px;
+    }
+    #space2 {
+      margin-bottom: 0rem;
+      margin-top: 1.5rem;
+    }
+    .border-shadow {
+      box-shadow: 0 8px 33px 0 rgba(0,0,0,.07);
+      border-radius: 8px;
+      background: #fff;
+    }
   </style>
 </head>
 <body>
 
   <section class="hero is-medium is-bold">
     <!-- Navbar start -->
-    <div class="hero-head">
+    <div class="hero-head is-light">
       <nav class="navbar">
         <div class="container">
           <div class="navbar-brand">
@@ -38,17 +66,28 @@
           </div>
           <div id="navbarMenu" class="navbar-menu">
             <div class="navbar-end">
-              <a class="navbar-item">
-                Donate
-              </a>
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-item">
+                  Donate
+                 </a>
+                 <div class="navbar-dropdown">
+                    <a class="navbar-item" href="./donor.html">
+                      Donor Profile
+                    </a>
+                    <a class="navbar-item">
+                      Search Organizations
+                    </a>
+                  </div>
+                </div>
+            </div>
               <a class="navbar-item">
                 Organizations
               </a>
-              <a class="navbar-item">
+              <a class="navbar-item" href="./about.html">
                 About Us
               </a>
               <span class="navbar-item">
-                <a class="button is-black is-outlined is-small" href="signin.html">
+                <a class="button is-black is-outlined is-small" href="./login.html">
                   <span class="icon">
                       <i class="fa fa-sign-out" aria-hidden="true"></i>
                   </span>
@@ -64,118 +103,152 @@
 
     <div class="hero-body hero is-info">
       <div class="container has-text-centered is-info">
-        <h1 class="title">
-          &lt;We are donation location and we are here to make it clear.&gt;
+        <h1 class="title" style="margin-bottom:1em">
+          Welcome to Donation Location
         </h1>
-        <h2 class="subtitle">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        <h2 class="subtitle" id="subtitle1">
+            We inspire the people to make a difference in their community by connecting them with local organizations on one easy-to-use platform where they can donate items to charities in their neighborhood.
         </h2>
-        <p>
-        </p>
         <br>
         <br>
-        <div class="container">
-          <p class="title has-text-centered">Sign In or Create a Profile</p>
-        <div class="hero-buttons">
-            <a class="button is-link is-inverted is-medium" href="./sign.html">
-              <span class="icon">
-                  <i class="fa fa-sign-in" aria-hidden="true"></i>
-                </span>
-              <span><strong>Donor Sign In</strong></span>
-            </a>
-            <a class="button is-link is-inverted is-medium" href="./sign.html">
-              <span class="icon">
-                  <i class="fa fa-sign-in" aria-hidden="true"></i>
-                </span>
-              <span><strong>Organization Sign In</strong></span>
-            </a>
-          </div>
-          <div class="hero-buttons">
-              <a class="button is-link is-inverted is-small" href="./sign.html">
-               
-                  </span>
-                  <span><strong>Not a member? Create a profile</strong></span>
-            </a>
+          <div class="container">
+            <div class="section-body">
+              <div class="columns is-centered">
+                <div class="column is-4">
+                    <div class="box hero border-shadow is-signup">
+                        <div class="box-body">
+                          <h2 class="box-title is-left">Individual Sign In</h2>
+                          <p>As a organization you can create </p>
+                        </div>
+                        <div class="box-footer">
+                          <a class="button is-info is-outlined is-small is-wide" href="./login.html">Get Started</a>
+                        </div>
+                      </div>
+                </div> 
+                <div class="column is-4">
+                  <div class="box hero border-shadow is-signup ">
+                    <div class="box-body">
+                      <h2 class="box-title">Organization Sign In</h2>
+                      <p></p>
+                    </div>
+                    <div class="box-footer is-right">
+                      <a class="button is-info is-outlined is-small is-right" href="./login.html">Get Started</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
+          <div class="hero-buttons is-centered">
+              <a class="button is-info is-link is-small" href="./signup.html">
+                  <span><strong>Not a member? Create a profile</strong></span>
+              </a>
+            </div>
       </div>
     </div>
-
   </section>
-
-  <div class="box cta is info">
+  
+  <div class="box cta" id="space1">
     <p class="has-text-centered">
-      
     </p>
   </div>
 
-  <section class="container">
-    <div class="columns features">
+  <section class="container ">
+    <div class="columns features ">
       <div class="column is-4">
-        <div class="card">
-          <div class="card-image has-text-centered">
-              <i class="fa fa-paw"></i>
-          </div>
+        <div class="card border-shadow">
           <div class="card-content">
             <div class="content">
-              <h4>Tristique senectus et netus et. </h4>
+              <h4>Easily find charities to give locally</h4>
               <p>Purus semper eget duis at tellus at urna condimentum mattis. Non blandit massa enim nec. Integer enim neque volutpat ac tincidunt vitae semper quis. Accumsan tortor posuere ac ut consequat semper viverra nam.</p>
-              <p><a href="#">Learn more</a></p>
+              <p><a href="./about.html">Learn more</a></p>
             </div>
           </div>
         </div>
       </div>
       <div class="column is-4">
-        <div class="card">
-          <div class="card-image has-text-centered">
-              <i class="fa fa-id-card-o"></i>
-          </div>
+        <div class="card border-shadow">
           <div class="card-content">
             <div class="content">
-              <h4>Tempor orci dapibus ultrices in.</h4>
+              <h4>Organizations only get donations they need</h4>
               <p>Ut venenatis tellus in metus vulputate. Amet consectetur adipiscing elit pellentesque. Sed arcu non odio euismod lacinia at quis risus. Faucibus turpis in eu mi bibendum neque egestas cmonsu songue. Phasellus vestibulum lorem sed risus.</p>
-              <p><a href="#">Learn more</a></p>
+              <p><a href="./about.html">Learn more</a></p>
             </div>
           </div>
         </div>
       </div>
       <div class="column is-4">
-        <div class="card">
-          <div class="card-image has-text-centered">
-              <i class="fa fa-rocket"></i>
-          </div>
+        <div class="card border-shadow">
           <div class="card-content">
             <div class="content">
-              <h4> Leo integer malesuada nunc vel risus.  </h4>
+              <h4>Community news and contacts</h4>
               <p>Imperdiet dui accumsan sit amet nulla facilisi morbi. Fusce ut placerat orci nulla pellentesque dignissim enim. Libero id faucibus nisl tincidunt eget nullam. Commodo viverra maecenas accumsan lacus vel facilisis.</p>
-              <p><a href="#">Learn more</a></p>
+              <p><a href="./about.html">Learn more</a></p>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="box cta">
-        <p class="has-text-centered">
-          
-        </p>
-      </div>
-  
     </div>
   </section>
+
+    <div class="box cta" id="space2">
+        <p class="has-text-centered">  
+        </p>
+      </div>
+    
   <footer class="footer">
     <div class="container">
       <div class="content has-text-centered">
         <p>
           <strong>Donation Location</strong> Copyright 2018  
-          
         </p>
             <a href="https://bulma.io">
               <img src="https://bulma.io/images/made-with-bulma.png" alt="Made with Bulma" width="128" height="24">
             </a>
-       
       </div>
     </div>
+    <div class="container">
+      <div class="columns">
+        <div class="column is-quarter">
+          <ul>
+            <li><strong>Web Site</strong></li>
+            <li>
+              <a href="./signup.html" class="">Sign up</a>
+            </li>
+            <li>
+              <a href="./about.html" class="">About Us</a></li>
+            <li>
+              <a href="./team.html" class="">Meet the Team</a>
+            </li>
+          </ul>
+        </div>
+        <div class="column is-quarter">
+          <ul>
+            <li><strong>Social Links</strong></li>
+            <li>
+              <a href="https://twitter.com/" target="_blank">Twitter</a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/" target="_blank">Linkedin</a>
+            </li>
+            <li>
+              <a href="https://github.com/" target="_blank">Facebook</a>
+            </li>
+          </ul>
+        </div>
+        <div class="column is-quarter">
+          <ul>
+            <li><strong>Contact</strong></li>
+            <li>+1 (361-944-05514)</li>
+            <li>
+              <a href="mailto:contact@dolo.com">contact@donation_location.com</a>
+            </li>
+            <li>2405 Robert Dedman Dr. Austin, Texas, 78751</li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
   </footer>
   <script async type="text/javascript" src="./js/donation.js"></script>
 </body>

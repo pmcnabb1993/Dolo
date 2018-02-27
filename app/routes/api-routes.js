@@ -3,6 +3,19 @@ var passport = require("../config/passport.js");
 
 module.exports = function(app) {
 
+
+  //CREATE ORG
+  app.post("/api/orgs", function(req, res) {
+    console.log(req.body)
+    db.Org.create({
+      name: req.body.name,
+      description: req.body.description,
+      web: req.body.web,
+      org_categoryID: req.body.org_categoryID
+    }).then(dbOrg=>res.json(dbOrg))
+    .catch(err=>res.json(err));
+  });
+
   //======================Donation Routes========================
   //=============================================================
 
@@ -23,6 +36,17 @@ module.exports = function(app) {
       });
     });
 
+    // CREATE a donation
+    app.post("/api/donations", function(req, res) {
+      db.Donation.create({
+        name: req.body.name,
+        description: req.body.description,
+        uid: req.body.uid,
+        item_categoryID: req.body.item_categoryID,
+        type: req.body.type
+      }).then(dbDonation=>res.json(dbDonation))
+      .catch(err=>res.json(err));
+    });
 
     // PUT route for updating Donation
     app.put("/api/donations", function(req, res) {
@@ -69,6 +93,19 @@ module.exports = function(app) {
     });
   });
 
+  //CREATE Request
+  app.post("/api/requests", function(req, res) {
+    console.log(req.body)
+    db.Request.create({
+      name: req.body.name,
+      description: req.body.description,
+      uid: req.body.uid,
+      item_categoryID: req.body.item_categoryID,
+      type: req.body.type
+    }).then(dbRequest=>res.json(dbRequest))
+    .catch(err=>res.json(err));
+  });
+
   // PUT route for updating request
   app.put("/api/requests", function(req, res) {
     db.Request.update(req.body,
@@ -82,46 +119,9 @@ module.exports = function(app) {
     });
   });
   
-    app.get("/api/requests/:id", function(req, res) {
-      db.Request.findById(req.params.id).then(data=>res.json(data));
-    });
-  
-    app.post("/api/requests", function(req, res) {
-      console.log(req.body)
-      db.Request.create({
-        name: req.body.name,
-        description: req.body.description,
-        uid: req.body.uid,
-        item_categoryID: req.body.item_categoryID,
-        type: req.body.type
-      }).then(dbRequest=>res.json(dbRequest))
-      .catch(err=>res.json(err));
-    });
-
-    app.post("/api/donations", function(req, res) {
-      db.Donation.create({
-        name: req.body.name,
-        description: req.body.description,
-        uid: req.body.uid,
-        item_categoryID: req.body.item_categoryID,
-        type: req.body.type
-      }).then(dbDonation=>res.json(dbDonation))
-      .catch(err=>res.json(err));
-    });
-
-
-    app.post("/api/orgs", function(req, res) {
-      console.log(req.body)
-      db.Org.create({
-        name: req.body.name,
-        description: req.body.description,
-        web: req.body.web,
-        org_categoryID: req.body.org_categoryID
-      }).then(dbDonation=>res.json(dbDonation))
-      .catch(err=>res.json(err));
-
-    });
-  
+  app.get("/api/requests/:id", function(req, res) {
+    db.Request.findById(req.params.id).then(data=>res.json(data));
+  });
 
   // DELETE route for deleting requet
   app.delete("/api/requests/:id", function(req, res) {
@@ -135,18 +135,22 @@ module.exports = function(app) {
     });
   });
   
-  //======================Authenticatoion Routes=========================
+  //======================Authentication Routes=========================
   //===================================================================
 
     //Using the passport.authenticate middleware with our local strategy.
     //If the user has valid login, they will be sent to the member page
     //Otherwise the user will be given an error
-    app.post("/api/login", passport.authenticate("local"), function(req, res) {
-      //Since we are doing a post with javascript, we can't actually redirect that post into a GET request
-      //So we're the user back the route to the members page because the redirect will happen on the front end
-      //They won't get this or even be able to access this if they authenticated
-      res.json("./members.js")
-  });
+  //   app.post("/api/login", passport.authenticate("local"), function(req, res) {
+  //     //Since we are doing a post with javascript, we can't actually redirect that post into a GET request
+  //     //So we're the user back the route to the members page because the redirect will happen on the front end
+  //     //They won't get this or even be able to access this if they authenticated
+  //     res.json("./members.js")
+  // });
+  
+  app.post('/api/login', (req, res) => passport.authenticate('local', { 
+    successRedirect: '/donations', failureRedirect: '/signup',
+  })(req, res));
 
   app.post("/api/users", function(req, res) {
     db.User.create({
@@ -167,12 +171,33 @@ module.exports = function(app) {
     .catch(err=>res.json(err));
   });
 
+
       //Route for logging user out
       app.get("/logout", function(req, res)   {
         req.logout();
         res.redirect("/");
     });
 
+    // Route for getting some data about our user to be used client side
+  app.get("/api/user_data", function(req, res) {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    }
+    else {
+      // Otherwise send back the user's email
+      res.json({
+        name: req.body.name
+      });
+    }
+  });
     
+
+  //Route for logging user out
+//   app.get("/logout", function(req, res)   {
+//     req.logout();
+//     res.redirect("/");
+//   });
+
 
 }
