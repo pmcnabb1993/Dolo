@@ -1,13 +1,13 @@
 $(document).ready(function() {
  
   //=======These are our 2 main HTML containers to display a list of donations or requests=========
-  //==============================================================================================
+  //===============================================================================================
   // myDonationsContainer holds all of our donated items
   var myDonationsContainer = $(".donations-container");
   // orgRequestsContainer holds all of Org's requests
   var orgRequestsContainer = $(".requests-container");
   
-  // click event for adding new donation
+  // click event for adding new donation - handleNewDonation will fire modal form
   $(document).on("click", "button.newDonation", handleNewDonation);
 
   // Org category user selects from dropdown
@@ -15,7 +15,7 @@ $(document).ready(function() {
   
   // Click events for donation edit and delete buttons -call edit/deleted functions
   $(document).on("click", "button.delete", handleDonationDelete);
-  // ***clicking edit will need to fire modal form
+  // ***clicking edit will fire modal form
   $(document).on("click", "button.edit", handleDonationEdit);
 
   // call function handleOrgCategoryChange on category change
@@ -24,6 +24,9 @@ $(document).ready(function() {
   // hold individual items
   var donations;
   var requests;
+
+  // Sets a flag for whether or not we're updating a donation to be false initially
+  var updating = false;
 
   // grabs donations from the database and updates the view
   // if there are none, call displayEmptyDonations to show message to user
@@ -161,27 +164,122 @@ $(document).ready(function() {
     return newRequestPanel;
   }
 
-  // add new donation
+  //===============================================================================
+  //===============================IN THE MODAL NOW================================
+  //=============Modal fires for 'Post New Donation' & for Edit Donation===========
+  //===============================================================================
+
+  // Getting jQuery references to the name, description, image, form, and category select
+  var nameInput = $("#donation-name");
+  var descInput = $("#desc");
+  var imgUpload = $("donation-image");
+  var donationForm = $("#donation-form");
+  var donationCategorySelect = $("#donation-category");
+  var updating = false;
+
+  // Giving the donationCategorySelect a default value
+  donationCategorySelect.val("What is our default category?");
+
+  //===========================Click Event - Submit Modal Form==========================
+  // click event for submit modal form
+  // contains logic for new donation and update existing donation
+  $(donationForm).on("submit", function handleFormSubmit(event) {
+    event.preventDefault();
+    // Wont submit the donation if we are missing a name or description
+    if (!nameInput.val().trim() || !descInput.val().trim()) {
+      return;
+    }
+    // Constructing a newDonation object to hand to the database
+    var newDonation = {
+      name: donationNameInput.val().trim(),
+      desc: descInput.val().trim(),
+      category: donationCategorySelect.val(),
+      image: imgUpload //??????????????????????????
+    };
+
+    console.log(newDonation);
+
+    // If we're updating a donation run updateDonation
+    // Otherwise run submitDonation to create a new donation
+    if (updating) {
+      newDonation.id = id;
+      updateDonation(newDonation);
+    }
+    else {
+      submitDonation(newDonation);
+    }
+  });
+  //===========================END - Submit Modal Form==========================
+
+
+
+  // ==============================NEW DONATION=================================
+   // add new donation
+   function handleNewDonation() {
+    //modal toggles on
+  }
+
+  // Submits a new donation and closes modal
+  function submitDonation(Donation) {
+    $.post("/api/donations/", Donation, function() {
+      //not changing pages here - just close modal
+      //but this will reload page and display new donation
+      window.location.href = "/donations";
+    });
+  }
+  // ======================END - NEW DONATION========================
+
+
+
+  //==========================UPDATE DONATION========================
+  // figure out donation id we want to edit 
   function handleDonationEdit() {
+    // fire modal ???
     var currentDonation = $(this)
       .parent()
       .parent()
       .data("donation");
-      window.location.href = "#";
+      getDonationData(currentDonation.id);
+      //window.location.href = "#";
       //not sending to a new window - we're firing the modal form
       //window.location.href = "/cms?item_id=" + currentItem.id;
   }
 
-  // figure out which donation we want to edit 
-  function handleDonationEdit() {
-    var currentDonation = $(this)
-      .parent()
-      .parent()
-      .data("donation");
-      window.location.href = "#";
-      //window.location.href = "/cms?item_id=" + currentItem.id;
+  // Gets donation data if we're editing
+  function getDonationData(id) {
+    $.get("/api/donations/" + id, function(data) {
+      if (data) {
+        // If this post exists, prefill our modal forms with its data
+        donationNameInput.val(data.name);
+        descInput.val(data.desc);
+        donationCategorySelect.val(data.category);
+        imgUpload //??????????????????????????
+        // If we have a donation with this id, set a flag for us to know to update
+        // when we hit submit
+        updating = true;
+      }
+    });
   }
+  // Update a given donation, bring user to the donations page when done
+  function updateDonation(item) {
+    $.ajax({
+      method: "PUT",
+      url: "/api/donations",
+      data: item
+    })
+    .then(function() {
+      window.location.href = "/donations";
+    });
+  }
+  //========================== END - UPDATE DONATION========================
 
+
+  //============================================================================
+  //===============================END MODAL NOW================================
+  //============================================================================
+ 
+
+  //==============================DELETE DONATION============================
   // figure out which donation we want to delete and then calls
   // deleteDonation
   function handleDonationDelete() {
@@ -203,6 +301,8 @@ $(document).ready(function() {
       getDonations();
     });
   }
+  //==============================END - DELETE DONATION============================
+
 
   // displays a message when there are no donations to list on the DOM
   function displayEmptyDonations() {
