@@ -10,8 +10,6 @@ $(document).ready(function () {
 
 
 
-
-
   //=======These are our 2 main HTML containers to display a list of donations or requests=========
   //===============================================================================================
   // myDonationsContainer holds all of our donated items
@@ -54,6 +52,13 @@ $(document).ready(function () {
       }
     });
   }
+
+    // This function handles reloading new requests/needs when Org category changes
+    function handleOrgCategoryChange() {
+      var newOrgCategory = $(this).val();
+      getRequests(newOrgCategory);
+    }
+  });
 
   // grabs Org requests/needs by category from database and updates the view
   //***Needs to be by catergoryID***
@@ -101,6 +106,7 @@ $(document).ready(function () {
     orgNeedsContainer.append(requestsToAdd);
   }
 
+  //============BUILD OUT INDIVIDUAL DONATIONS INTO .donations-container==========
   // construct a donation's HTML
   // need to work in image thumbnail
   //===========================================
@@ -131,9 +137,10 @@ $(document).ready(function () {
     return newDonationPanel;
   }
 
-
+  //============BUILD OUT INDIVIDUAL REQUETS INTO .requests-container==========
   // construct a request's HTML
   // need to work in image thumbnail
+  // Need 'Claim It!' button
   //===========================================
   function createNewRequestRow(item) {
     var newRequestPanel = $("<div>");
@@ -335,10 +342,4 @@ $(document).ready(function () {
     orgRequestsContainer.append(messageOrg);
   }
 
-  // This function handles reloading new requests/needs when Org category changes
-  function handleOrgCategoryChange() {
-    var newOrgCategory = $(this).val();
-    getRequests(newOrgCategory);
-  }
 
-});
