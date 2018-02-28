@@ -31,6 +31,13 @@
     height: auto;
     width: 35%;
     }
+    .card-table {
+    max-height: 445px;
+    overflow-y: scroll;
+    }
+    article {
+      margin-right: 1rem;
+    }
     
   </style>
 </head>
@@ -147,6 +154,7 @@
               <div class="column is-6">
                 <div class="box">
                     <p class="has-text-centered" id="title"><strong>Your Posted Donations</strong></p>
+                    <div class="card-table">
                   <article class="media">
                     <div class="media-left">
                     </div>
@@ -154,7 +162,7 @@
                       <nav class="level">
                         <div class="level-left">
                           <a class="level-item">
-                            <span class="icon is-small"><i class="fa fa-reply"></i></span>
+                            <span class="icon is-2x"><i class="fa fa-angle-down"></i></span>
                           </a>
                         </div>
                       </nav>
@@ -276,6 +284,37 @@
                               </nav>
                             </div>
                           </article>
+                       <article class="media">
+                            <div class="media-left">
+                              <figure class="image is-64x64">
+                                <img src="http://placehold.it/128x128" alt="Image">
+                              </figure>
+                            </div>
+                            <div class="media-content">
+                              <div class="content">
+                                <p>
+                                  <strong>Item:</strong> <small>Kitchen Table Set</small><small style="float:right;">1m</small>
+                                  <br>
+                                  <small>Old but sturdy wooden table with six chairs</small>
+                                </p>
+                              </div>
+                              <nav class="level">
+                                <div class="level-left">
+                                  <a class="level-item">
+                                    <span class="icon is-small"><i class="fa fa-edit"></i></span>Edit
+                                  </a>
+                                  <!-- <p>Edit</p> -->
+                                </div>
+                                <div class="level-right">
+                                    <a class="level-item">
+                                      <span class="icon is-small"><i class="fa fa-trash"></i></span>Delete
+                                    </a>
+                                  </div>
+                              </nav>
+                            </div>
+                        </article>
+                      <!-- End table -->
+                     </div>
                 </div>
               </div>
 
