@@ -1,19 +1,19 @@
 $(document).ready(function () {
 
-  //This file just does a GET request to figure out which user is logged in
-  //and updates the HTML on the page
+  //================DONOR PROFILE DATA TO POPULATE DOM ============================================
+  //===============================================================================================
 
   $.get("/api/user_data").then(function (data) {
     $(".user-name").text(data.name);
     $(".user-city").text(data.city);
     $(".user-state").text(data.state);
+    $(".user-email").text(data.email);
+    $(".user-phone").text(data.phone);
+    $(".user-street").text(data.street);
+    $(".user-zip").text(data.zip);
     console.log("The user data is: ", data);
   });
 
-  // $.get("/api/user_data").then(function (data) {
-  //   $(".user-city").text(data.city);
-  //   console.log("The user city is: ", data);
-  // });
 
 
   //================DONOR PROFILE PAGE - WE HAVE OUR DONATIONS & A FORM TO ADD MORE================

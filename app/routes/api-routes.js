@@ -191,8 +191,12 @@ module.exports = function(app) {
       // Otherwise send back the user's email
       res.json({
         name: req.user.name,
+        street: req.user.street,
         city: req.user.city,
-        state: req.user.state
+        state: req.user.state,
+        email: req.user.email, 
+        phone: req.user.phone,
+        zip: req.user.zip
       });
     }
   });
