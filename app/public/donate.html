@@ -26,6 +26,11 @@
     #title {
       font-size: 25px;
     }
+    #avatar{
+    display: block;
+    height: auto;
+    width: 35%;
+    }
     
   </style>
 </head>
@@ -104,13 +109,16 @@
             <div class="columns">
               <div class="column is-3">
                 <div class="card is-fullwidth ">
-                  <header class="card-header">
-                  </header>
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Welcome Friend!
+                        </p>
+                      </header>
                   <div class="card-content">
                     <a class="card-avatar">
-                      <img src="https://pbs.twimg.com/profile_images/3005141692/dc8e1eb36b6cbd2b5726f63c50adf7f2.png" class="card-avatar-img">
+                      <img src="assets/img/user.png" class="card-avatar-img" id="avatar">
                     </a>
-      
+                    <br>
                     <div class="card-user">
                       <div class="card-user-name" id="name">
                         <a>Preston McNabb</a>
@@ -118,6 +126,9 @@
                       <div class="card-user-city" id="city">
                           <a>Austin</a>
                         </div>
+                        <div class="card-user-city" id="city">
+                            <a>Texas</a>
+                          </div>
                     </div>
                   </div>
                 </div>
@@ -268,6 +279,7 @@
                 </div>
               </div>
 
+            <!-- Post box -->
               <div class="column is-3">
                 <div class="card is-fullwidth" id="donation-form">
                     <header class="card-header">
@@ -280,7 +292,9 @@
                           <div class="field">
                               <label class="label">Item</label>
                               <div class="control">
-                                <input class="input" id="donation-name" type="text" placeholder="Item Name">
+
+                                <input class="input" type="text" id="donation-name" placeholder="Item Name">
+
                               </div>
                             </div>
 
@@ -312,7 +326,7 @@
                                 <label class="label">Upload Image</label>
                                 <div class="file has-name is-small is-info">
                                     <label class="file-label">
-                                      <input class="file-input" type="file" name="resume">
+                                      <input class="file-input" type="file" id="donation-image" name="resume">
                                       <span class="file-cta">
                                         <span class="file-icon">
                                           <i class="fa fa-upload"></i>
