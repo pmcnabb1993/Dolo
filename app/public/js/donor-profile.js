@@ -93,7 +93,7 @@ $(document).ready(function () {
 
   // Getting jQuery references to the name, description, image, form, and category select
   var nameInput = $("#donation-name");
-  var descInput = $("#desc");
+  var descInput = $("#donation-desc");
   var imgUpload = $("donation-image");
   var donationForm = $("#donation-form");
   var donationCategorySelect = $("#donation-category");
@@ -102,15 +102,17 @@ $(document).ready(function () {
   //===========================Click Event - Submit Form==========================
   // contains logic for new donation and update existing donation
   $(donationForm).on("submit", function handleFormSubmit(event) {
+    console.log('clicked form submit');
     event.preventDefault();
     // Wont submit the donation if we are missing a name or description
     if (!nameInput.val().trim() || !descInput.val().trim()) {
+      console.log('no name or description! try again');
       return;
-    }
+  
     // Constructing a newDonation object to hand to the database
     var newDonation = {
-      name: donationNameInput.val().trim(),
-      desc: descInput.val().trim(),
+      name: nameInput.val().trim(),
+      description: descInput.val().trim(),
       category: donationCategorySelect.val(),
       //image: imgUpload //??????????????????????????
     };
@@ -126,7 +128,8 @@ $(document).ready(function () {
     else {
       submitDonation(newDonation);
     }
-  });
+  }
+});
   //===========================END - Submit Form==========================
 
 
@@ -135,9 +138,8 @@ $(document).ready(function () {
   // Submits a new donation
   function submitDonation(Donation) {
     $.post("/api/donations/", Donation, function() {
-      //not changing pages here - just close modal
-      //but this will reload page and display new donation
-      window.location.href = "/donations";
+      // call getDonations to print all user donations to DOM
+      getDonations();
     });
   }
   // ======================END - NEW DONATION========================
@@ -162,7 +164,7 @@ $(document).ready(function () {
       if (data) {
         // If this post exists, prefill our forms with its data
         donationNameInput.val(data.name);
-        descInput.val(data.desc);
+        descriptionInput.val(data.description);
         donationCategorySelect.val(data.category);
         imgUpload //??????????????????????????
         // If we have a donation with this id, set a flag for us to know to update
@@ -176,7 +178,7 @@ $(document).ready(function () {
   function updateDonation(item) {
     $.ajax({
       method: "PUT",
-      url: "/api/donations",
+      url: "/api/donations/:uid",
       data: item
     })
     .then(function() {
@@ -213,6 +215,7 @@ $(document).ready(function () {
 
   // displays a message when there are no donations to list on the DOM
   function displayEmptyDonations() {
+    console.log("Donations do not exist");
     myDonationsContainer.empty();
     var messageDonor = $("<h2>");
     messageDonor.css({ "text-align": "center", "margin-top": "50px" });
@@ -220,4 +223,4 @@ $(document).ready(function () {
     myDonationsContainer.append(messageDonor);
   }
 
- 
+});
