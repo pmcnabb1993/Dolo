@@ -25,10 +25,10 @@ module.exports = function(app) {
     });
 
     // GET route for returning all Donations of a specific categoryID
-    app.get("/api/donations/:item_categoryID", function(req, res) {
+    app.get("/api/donations/:uid", function(req, res) {
       db.Donation.findAll({
         where: {
-          item_categoryID: req.params.item_categoryID
+          uid: req.params.uid
         }
       })
       .then(function(dbDonation) {

@@ -9,7 +9,6 @@ $(document).ready(function () {
   });
 
 
-
   //=======These are our 2 main HTML containers to display a list of donations or requests=========
   //===============================================================================================
   // myDonationsContainer holds all of our donated items
