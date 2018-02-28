@@ -269,7 +269,7 @@
               </div>
 
               <div class="column is-3">
-                <div class="card is-fullwidth">
+                <div class="card is-fullwidth" id="donation-form">
                     <header class="card-header">
                       <p class="card-header-title">
                           Post New Donation
@@ -280,7 +280,7 @@
                           <div class="field">
                               <label class="label">Item</label>
                               <div class="control">
-                                <input class="input" type="text" placeholder="Item Name">
+                                <input class="input" id="donation-name" type="text" placeholder="Item Name">
                               </div>
                             </div>
 
@@ -289,7 +289,7 @@
                                     <label class="label">Category</label>
                                     <div class="control">
                                       <div class="select">
-                                        <select class="form-control" id="category">
+                                        <select class="form-control" id="donation-category">
                                             <option value="Clothes">Clothes</option>
                                             <option value="Kitchen">Food</option>
                                             <option value="Furniture">Furniture</option>
@@ -304,7 +304,7 @@
                               <div class="field">
                                   <label class="label">Description</label>
                                     <div class="control">
-                                      <textarea class="textarea" placeholder="Textarea"></textarea>
+                                      <textarea class="textarea" id="donation-desc" placeholder="Textarea"></textarea>
                                     </div>
                                 </div>
                             <!-- image -->
@@ -356,7 +356,7 @@
     
   <!-- Custom Script -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js" type="text/javascript"></script>
-  <script src="js/donor.js" type="text/javascript"></script>
+  <script src="js/donor-profile.js" type="text/javascript"></script>
 
 </body>
 
