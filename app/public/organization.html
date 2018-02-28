@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Donor Profile Page</title>
+  <title>Organization Profile Page</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
@@ -113,14 +113,14 @@
       <!-- Navbar end -->
 
       <!-- Begin Profile -->
-      <section class="section main hero is-info">
+      <section class="section main hero is-light">
           <div class="container">
             <div class="columns">
               <div class="column is-3">
                 <div class="card is-fullwidth ">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            Welcome to Donation Location!
+                    <header class="card-header hero is-info">
+                        <p class="card-header-title has-text-white">
+                            <a>Welcome to Donation Location!</a>
                         </p>
                       </header>
                   <div class="card-content">
@@ -129,27 +129,35 @@
                     </a>
                     <br>
                     <div class="card-user">
-                      <div class="card-user-name" id="name">
-                        <a class="user-name"></a>
+                      <div class="card-user-name" id="organization">
+                        <p>Organization: <a class="org-name"></a></p>
                       </div>
-                      <div class="card-user-city" id="city">
-                          <a class="user-city"></a>
-                        </div>
-                        <div class="card-user-state" id="state" placeholder="TX">
-                            <a class="user-state" placeholder="TX"></a>
-                          </div>
+                      <div class="card-user-name" id="name">
+                        <p>User: <a class="user-name"></a></p>
+                      </div>
+                      <div class="card-user-city" id="website">
+                          <p>Website: <a class="user-website"></a></p>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <br>
                 <div class="spacer"></div>
-                <div class="box">
-                  <p><strong>Contact</strong>
-                  <p><a href="#">Email: </a><small>blank@email.com</small></p>
-                  <p><a href="#">Phone: </a><small>361-944-0515</small></p>
-                  <p><a href="#">Website: </a><small>facebook.com/prestonmcnabb</small></p>
-                  <p><a href="#">City: </a><small>Austin</small></p>
-                </div>
+                <div class="card is-fullwidth">
+                    <header class="card-header hero is-info">
+                      <p class="card-header-title has-text-white">
+                        <strong>Our Contact: </strong>
+                      </p>
+                    </header>
+                    <div class="card-content">
+                    <p><a href="#">Email: </a><small><span class="org-email"></span></small></p>
+                    <p><a href="#">Phone: </a><small><span class="org-phone"></span></small></p>
+                    <p><a href="#">Street: </a><small><span class="org-street"></span></small></p>
+                    <p><a href="#">City: </a><small><span class="org-city"></span></small></p>
+                    <p><a href="#">State: </a><small><span class="org-state"></span></small></p>
+                    <p><a href="#">Zip: </a><small><span class="org-zip"></span></small></p>
+                    </div>
+                  </div>
               </div>
 
               <!-- Middle Sec -->
@@ -298,8 +306,8 @@
             <!-- Post box -->
               <div class="column is-3">
                 <div class="card is-fullwidth" id="donation-form">
-                    <header class="card-header">
-                      <p class="card-header-title">
+                    <header class="card-header hero is-info">
+                      <p class="card-header-title has-text-white">
                           Post New Request
                       </p>
                     </header>
