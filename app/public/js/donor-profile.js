@@ -144,6 +144,7 @@ $(document).ready(function () {
 
   // Submits a new donation
   function submitDonation(Donation) {
+    console.log("this function submitDonation is running");
     $.post("/api/donations/", Donation, function() {
       // call getDonations to print all user donations to DOM
       getDonations();
@@ -229,5 +230,11 @@ $(document).ready(function () {
     messageDonor.html("Local organizations are in need!, click <a href='#'>here (fire 'add-item' modal) </a> to post a donation.");
     myDonationsContainer.append(messageDonor);
   }
+
+
+
+
+
+
 
 });
