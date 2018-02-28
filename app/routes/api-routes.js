@@ -190,7 +190,9 @@ module.exports = function(app) {
     else {
       // Otherwise send back the user's email
       res.json({
-        name: req.user.name
+        name: req.user.name,
+        city: req.user.city,
+        state: req.user.state
       });
     }
   });
