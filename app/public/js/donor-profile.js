@@ -5,8 +5,15 @@ $(document).ready(function () {
 
   $.get("/api/user_data").then(function (data) {
     $(".user-name").text(data.name);
-    console.log("The user name is: ", data);
+    $(".user-city").text(data.city);
+    $(".user-state").text(data.state);
+    console.log("The user data is: ", data);
   });
+
+  // $.get("/api/user_data").then(function (data) {
+  //   $(".user-city").text(data.city);
+  //   console.log("The user city is: ", data);
+  // });
 
 
   //================DONOR PROFILE PAGE - WE HAVE OUR DONATIONS & A FORM TO ADD MORE================
