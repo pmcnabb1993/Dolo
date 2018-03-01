@@ -20,15 +20,17 @@ module.exports = function(app) {
   //=============================================================
 
     //GET route to return ALL Donations (need?)
-    app.get("/api/donations", function(req, res) {
-      db.Donation.findAll({}).then(dbDonation=>res.json(dbDonation));
-    });
+    // app.get("/api/donations", function(req, res) {
+    //   db.Donation.findAll({}).then(dbDonation=>res.json(dbDonation));
+    // });
 
     // GET route for returning all Donations of a specific categoryID
     app.get("/api/donations", function(req, res) {
       db.Donation.findAll({
         where: {
-          uid: req.user.uid
+ donation-creation-Darren
+          uid: req.user.id
+
         }
       })
       .then(function(dbDonation) {
@@ -46,7 +48,9 @@ module.exports = function(app) {
         type: req.body.type
       }).then(dbDonation=>res.json(dbDonation))
       
-      //.catch(err=>res.json(err));
+
+      // .catch(err=>res.json(err));
+
     });
 
     // PUT route for updating Donation
