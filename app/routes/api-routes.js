@@ -25,10 +25,10 @@ module.exports = function(app) {
     });
 
     // GET route for returning all Donations of a specific categoryID
-    app.get("/api/donations/:uid", function(req, res) {
+    app.get("/api/donations", function(req, res) {
       db.Donation.findAll({
         where: {
-          uid: req.params.uid
+          uid: req.user.uid
         }
       })
       .then(function(dbDonation) {
@@ -37,7 +37,7 @@ module.exports = function(app) {
     });
 
     // CREATE a donation
-    app.post("/api/donations/", function(req, res) {
+    app.post("/api/donations", function(req, res) {
       db.Donation.create({
         name: req.body.name,
         description: req.body.description,
@@ -46,7 +46,7 @@ module.exports = function(app) {
         type: req.body.type
       }).then(dbDonation=>res.json(dbDonation))
       
-      .catch(err=>res.json(err));
+      //.catch(err=>res.json(err));
     });
 
     // PUT route for updating Donation
