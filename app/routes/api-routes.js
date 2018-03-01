@@ -28,7 +28,9 @@ module.exports = function(app) {
     app.get("/api/donations", function(req, res) {
       db.Donation.findAll({
         where: {
+ donation-creation-Darren
           uid: req.user.id
+
         }
       })
       .then(function(dbDonation) {
@@ -37,7 +39,7 @@ module.exports = function(app) {
     });
 
     // CREATE a donation
-    app.post("/api/donations/", function(req, res) {
+    app.post("/api/donations", function(req, res) {
       db.Donation.create({
         name: req.body.name,
         description: req.body.description,
@@ -46,7 +48,9 @@ module.exports = function(app) {
         type: req.body.type
       }).then(dbDonation=>res.json(dbDonation))
       
+
       // .catch(err=>res.json(err));
+
     });
 
     // PUT route for updating Donation

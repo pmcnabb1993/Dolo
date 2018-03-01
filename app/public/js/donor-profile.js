@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+
+  //Greg's latest
   //================DONOR PROFILE DATA TO POPULATE DOM ============================================
   //===============================================================================================
 
@@ -116,7 +118,7 @@ $(document).ready(function () {
   donationForm.on("submit", function handleFormSubmit(event) {
     console.log('clicked form submit');
     console.log(nameInput.val() );
-    console.log(descriptionInput.val() );
+    console.log(descriptionInput.data() );
     console.log(donationCategorySelect.val() );
 
     event.preventDefault();
@@ -129,7 +131,8 @@ $(document).ready(function () {
     var newDonation = {
       name: nameInput.val(),
       description: descriptionInput.val(),
-      category: donationCategorySelect.val(),
+      item_categoryID: donationCategorySelect.val(),
+      type: "material"
       //image: imgUpload //??????????????????????????
     };
 

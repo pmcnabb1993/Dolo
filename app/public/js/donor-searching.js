@@ -91,7 +91,7 @@ $(document).ready(function () {
     newRequestPanelBody.addClass("panel-body");
     var newRequestDescription = $("<p>");
     newRequestName.text(request.name + " ");
-    newRequestDesc.text(request.desc);
+    newRequestDesc.text(request.description);
     var formattedDate = new Date(request.createdAt);
     formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
     newRequestDate.text(formattedDate);
