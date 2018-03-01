@@ -196,7 +196,8 @@ module.exports = function(app) {
         state: req.user.state,
         email: req.user.email, 
         phone: req.user.phone,
-        zip: req.user.zip
+        zip: req.user.zip,
+        id: req.user.id
       });
     }
   });
