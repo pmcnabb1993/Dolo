@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     type: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         isIn: [['material', 'service']]
       }
