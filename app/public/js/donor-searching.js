@@ -66,7 +66,7 @@ $(document).ready(function () {
   // need to work in image thumbnail
   // Need 'Claim It!' button
   //===========================================
-  function createNewRequestRow(item) {
+  function createNewRequestRow(request) {
     var newRequestPanel = $("<div>");
     newRequestPanel.addClass("panel panel-default");
     var newRequestPanelHeading = $("<div>");
@@ -89,7 +89,7 @@ $(document).ready(function () {
     });
     var newRequestPanelBody = $("<div>");
     newRequestPanelBody.addClass("panel-body");
-    var newRequestDesc = $("<p>");
+    var newRequestDescription = $("<p>");
     newRequestName.text(request.name + " ");
     newRequestDesc.text(request.desc);
     var formattedDate = new Date(request.createdAt);
@@ -100,7 +100,7 @@ $(document).ready(function () {
     newRequestPanelHeading.append(editBtn);
     newRequestPanelHeading.append(newRequestName);
     newRequestPanelHeading.append(newCategory);
-    newRequestPanelBody.append(newRequestDesc);
+    newRequestPanelBody.append(newRequestDescription);
     newRequestPanel.append(newRequestPanelHeading);
     newRequestPanel.append(newRequestPanelBody);
     newRequestPanel.data("request", request);
