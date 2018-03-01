@@ -37,14 +37,15 @@ module.exports = function(app) {
     });
 
     // CREATE a donation
-    app.post("/api/donations", function(req, res) {
+    app.post("/api/donations/", function(req, res) {
       db.Donation.create({
         name: req.body.name,
         description: req.body.description,
-        uid: req.body.uid,
+        //uid: req.body.uid,
         item_categoryID: req.body.item_categoryID,
         type: req.body.type
       }).then(dbDonation=>res.json(dbDonation))
+      
       .catch(err=>res.json(err));
     });
 
