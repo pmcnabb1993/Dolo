@@ -207,122 +207,10 @@
                         </nav>
                       </div>
                     </article>
-                    <article class="media">
-                        <div class="media-left">
-                          <figure class="image is-64x64">
-                            <img src="http://placehold.it/128x128" alt="Image">
-                          </figure>
-                        </div>
-                        <div class="media-content">
-                          <div class="content">
-                            <p>
-                              <strong>Item:</strong> <small>Mini Fridge</small><small style="float:right;">5m</small>
-                              <br>
-                              <small>Brand new and still in the package.</small>
-                            </p>
-                          </div>
-                          <nav class="level">
-                            <div class="level-left">
-                              <a class="level-item">
-                                <span class="icon is-small"><i class="fa fa-edit"></i></span>Edit
-                              </a>
-                              <!-- <p>Edit</p> -->
-                            </div>
-                            <div class="level-right">
-                                <a class="level-item">
-                                  <span class="icon is-small"><i class="fa fa-trash"></i></span>Delete
-                                </a>
-                              </div>
-                          </nav>
-                        </div>
-                      </article>
-                      <article class="media">
-                          <div class="media-left">
-                            <figure class="image is-64x64">
-                              <img src="http://placehold.it/128x128" alt="Image">
-                            </figure>
-                          </div>
-                          <div class="media-content">
-                            <div class="content">
-                              <p>
-                                <strong>Item:</strong> <small>Couch</small><small style="float:right;">5m</small>
-                                <br>
-                                <small>Small grey couch from Ikea is great condition.</small>
-                              </p>
-                            </div>
-                            <nav class="level">
-                              <div class="level-left">
-                                <a class="level-item">
-                                  <span class="icon is-small"><i class="fa fa-edit"></i></span>Edit
-                                </a>
-                                <!-- <p>Edit</p> -->
-                              </div>
-                              <div class="level-right">
-                                  <a class="level-item">
-                                    <span class="icon is-small"><i class="fa fa-trash"></i></span>Delete
-                                  </a>
-                                </div>
-                            </nav>
-                          </div>
-                        </article>
-                        <article class="media">
-                            <div class="media-left">
-                              <figure class="image is-64x64">
-                                <img src="http://placehold.it/128x128" alt="Image">
-                              </figure>
-                            </div>
-                            <div class="media-content">
-                              <div class="content">
-                                <p>
-                                  <strong>Item:</strong> <small>Lamp</small><small style="float:right;">10m</small>
-                                  <br>
-                                  <small>Tall floor lamp in great condition</small>
-                                </p>
-                              </div>
-                              <nav class="level">
-                                <div class="level-left">
-                                  <a class="level-item">
-                                    <span class="icon is-small"><i class="fa fa-edit"></i></span>Edit
-                                  </a>
-                                  <!-- <p>Edit</p> -->
-                                </div>
-                                <div class="level-right">
-                                    <a class="level-item">
-                                      <span class="icon is-small"><i class="fa fa-trash"></i></span>Delete
-                                    </a>
-                                  </div>
-                              </nav>
-                            </div>
-                          </article>
-                       <article class="media">
-                            <div class="media-left">
-                              <figure class="image is-64x64">
-                                <img src="http://placehold.it/128x128" alt="Image">
-                              </figure>
-                            </div>
-                            <div class="media-content">
-                              <div class="content">
-                                <p>
-                                  <strong>Item:</strong> <small>Kitchen Table Set</small><small style="float:right;">1m</small>
-                                  <br>
-                                  <small>Old but sturdy wooden table with six chairs</small>
-                                </p>
-                              </div>
-                              <nav class="level">
-                                <div class="level-left">
-                                  <a class="level-item">
-                                    <span class="icon is-small"><i class="fa fa-edit"></i></span>Edit
-                                  </a>
-                                  <!-- <p>Edit</p> -->
-                                </div>
-                                <div class="level-right">
-                                    <a class="level-item">
-                                      <span class="icon is-small"><i class="fa fa-trash"></i></span>Delete
-                                    </a>
-                                  </div>
-                              </nav>
-                            </div>
-                        </article>
+
+                    <!-- dynamically load in user's donations -->
+                  <article><div class="donations-container">   </div></article>
+                    
                       <!-- End table -->
                      </div>
                 </div>
@@ -330,7 +218,8 @@
 
             <!-- Post box -->
               <div class="column is-3">
-                <div class="card is-fullwidth" id="donation-form">
+                <div class="card is-fullwidth" >
+                  <form id="donation-form">
                     <header class="card-header hero is-info">
                       <p class="card-header-title has-text-white">
                           Post New Donation
@@ -367,7 +256,7 @@
                               <div class="field">
                                   <label class="label">Description</label>
                                     <div class="control">
-                                      <textarea class="textarea" id="donation-desc" placeholder="Textarea"></textarea>
+                                      <textarea class="textarea" id="donation-description" placeholder="Textarea"></textarea>
                                     </div>
                                 </div>
                             <!-- image -->
@@ -397,18 +286,19 @@
                               <span class="icon">
                                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
                               </span>
-                            <span id="submit">Post</span>
+                            <button  id="submit">Post</button>
                           </a>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                           <div class="col-md-12 donations-container">
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-md-12 requests-container">
                           </div>
-                        </div>
+                        </div> -->
                       </div>
+                    </form>
                 </div>
               </div>
             </div>

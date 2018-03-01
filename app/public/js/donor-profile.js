@@ -35,7 +35,7 @@ $(document).ready(function () {
   // grabs donations from the database and updates the view
   // if there are none, call displayEmptyDonations to show message to user
   function getDonations() {
-    $.get("/api/donations/:uid", function (data) {
+    $.get("/api/donations/", function (data) {
       console.log("Donations", data);
       donations = data;
       if (!donations || !donations.length) {
@@ -70,9 +70,7 @@ $(document).ready(function () {
     console.log(donation);
     console.log(donation.id);
 
-      $('.donation-entry').append(`
-        <div class="column is-6">
-        <div class="box">
+      $('.donations-container').append(`
           <article class="media">
           <div class="media-left">
             <figure class="image is-64x64">
@@ -102,78 +100,40 @@ $(document).ready(function () {
             </nav>
           </div>
         </article>
-      </div>
-      </div>
       `); 
   };
 
-  // function createNewDonationRow(donation) {
-  //   console.log(donation);
-  //   console.log(donation.id);
-
-  //   var newDonationPanel = $("<div>");
-  //   newDonationPanel.addClass("panel panel-default");
-  //   var newDonationPanelHeading = $("<div>");
-  //   newDonationPanelHeading.addClass("panel-heading");
-  //   var deleteBtn = $("<button>");
-  //   deleteBtn.text("x");
-  //   deleteBtn.addClass("delete btn btn-danger");
-  //   var editBtn = $("<button>");
-  //   editBtn.text("EDIT");
-  //   editBtn.addClass("edit btn btn-default");
-  //   editBtn.val(item.id);
-  //   var newDonationName = $("<h2>");
-  //   var newDonationDate = $("<small>");
-  //   var newDonationCategory = $("<h5>");
-  //   newDonationCategory.text("Category: " + donation.category);
-
-  //   var newDonationPanelBody = $("<div>");
-  //   newDonationPanelBody.addClass("panel-body");
-  //   var newDonationDescription = $("<p>");
-  //   newDonationName.text(donation.name + " ");
-  //   newDonationDesc.text(donation.description);
-  //   var formattedDate = new Date(donation.createdAt);
-  //   formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
-  //   newDonationDate.text(formattedDate);
-  //   newDonationName.append(newDonationDate);
-  //   newDonationPanelHeading.append(deleteBtn);
-  //   newDonationPanelHeading.append(editBtn);
-  //   newDonationPanelHeading.append(newDonationName);
-  //   newDonationPanelHeading.append(newCategory);
-  //   newDonationPanelBody.append(newDonationDescription);
-  //   newDonationPanel.append(newDonationPanelHeading);
-  //   newDonationPanel.append(newDonationPanelBody);
-  //   newDonationPanel.data("donation", donation);
-  //   return newDonationPanel;
-  // }
-
-
   // Getting jQuery references to the name, description, image, form, and category select
-  var nameInput = $("#donation-name");
-  var descInput = $("#donation-desc");
+  var nameInput = $("input#donation-name");
+  var descriptionInput = $("textarea#donation-description");
   var imgUpload = $("donation-image");
   var donationForm = $("#donation-form");
-  var donationCategorySelect = $("#donation-category");
+  var donationCategorySelect = $("select#donation-category");
   var updating = false;
 
   //===========================Click Event - Submit Form==========================
   // contains logic for new donation and update existing donation
-  $('#donation-form').on("submit", function handleFormSubmit(event) {
+  donationForm.on("submit", function handleFormSubmit(event) {
     console.log('clicked form submit');
+    console.log(nameInput.val() );
+    console.log(descriptionInput.val() );
+    console.log(donationCategorySelect.val() );
+
     event.preventDefault();
     // Wont submit the donation if we are missing a name or description
-    if (!nameInput.val().trim() || !descInput.val().trim()) {
+    if (!nameInput.val() || !descriptionInput.val()) {
       console.log('no name or description! try again');
       return;
-  
+    }
     // Constructing a newDonation object to hand to the database
     var newDonation = {
-      name: nameInput.val().trim(),
-      description: descInput.val().trim(),
+      name: nameInput.val(),
+      description: descriptionInput.val(),
       category: donationCategorySelect.val(),
       //image: imgUpload //??????????????????????????
     };
 
+    console.log("new donation is below");
     console.log(newDonation);
 
     // If we're updating a donation run updateDonation
@@ -185,7 +145,7 @@ $(document).ready(function () {
     else {
       submitDonation(newDonation);
     }
-  }
+  
 });
   //===========================END - Submit Form==========================
 
@@ -194,7 +154,7 @@ $(document).ready(function () {
 
   // Submits a new donation
   function submitDonation(Donation) {
-    console.log("this function submitDonation is running");
+    console.log("function submitDonation is running");
     $.post("/api/donations/", Donation, function() {
       // call getDonations to print all user donations to DOM
       getDonations();
