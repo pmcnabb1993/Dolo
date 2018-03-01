@@ -59,36 +59,86 @@ $(document).ready(function () {
   // construct a donation's HTML
   // need to work in image thumbnail
   //===========================================
-  function createNewDonationRow(item) {
-    console.log(item);
-    console.log(item.id);
+  function createNewDonationRow(donation) {
+    console.log(donation);
+    console.log(donation.id);
 
-    var newDonationPanel = $("<div>");
-    newDonationPanel.addClass("panel panel-default");
-    var newDonationPanelHeading = $("<div>");
-    newDonationPanelHeading.addClass("panel-heading");
-    var deleteBtn = $("<button>");
-    deleteBtn.text("x");
-    deleteBtn.addClass("delete btn btn-danger");
-    var editBtn = $("<button>");
-    editBtn.text("EDIT");
-    editBtn.addClass("edit btn btn-default");
-    editBtn.val(item.id);
-    var newDonationName = $("<h2>");
-    var newDonationDate = $("<small>");
-    
-    newDonationName.text(donation.name + " ");
-    var formattedDate = new Date(donation.createdAt);
-    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
-    newDonationDate.text(formattedDate);
-    newDonationName.append(newDonationDate);
-    newDonationPanelHeading.append(deleteBtn);
-    newDonationPanelHeading.append(editBtn);
-    newDonationPanelHeading.append(newDonationName);
-    newDonationPanel.append(newDonationPanelHeading);
-    newDonationPanel.data("donation", donation);
-    return newDonationPanel;
-  }
+      $('.donation-entry').append(`
+        <div class="column is-6">
+        <div class="box">
+          <article class="media">
+          <div class="media-left">
+            <figure class="image is-64x64">
+              <img src="http://placehold.it/128x128" alt="Image">
+            </figure>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Item:</strong> <small>${donation.name}</small><small style="float:right;">1m</small>
+                <br>
+                <small>${donation.description}</small>
+              </p>
+            </div>
+            <nav class="level">
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fa fa-edit" data="${donation.id}></i></span>Edit
+                </a>
+                <!-- <p>Edit</p> -->
+              </div>
+              <div class="level-right">
+                  <a class="level-item">
+                    <span class="icon is-small"><i class="fa fa-trash" data="${donation.id}></i></span>Delete
+                  </a>
+                </div>
+            </nav>
+          </div>
+        </article>
+      </div>
+      </div>
+      `); 
+  };
+
+  // function createNewDonationRow(donation) {
+  //   console.log(donation);
+  //   console.log(donation.id);
+
+  //   var newDonationPanel = $("<div>");
+  //   newDonationPanel.addClass("panel panel-default");
+  //   var newDonationPanelHeading = $("<div>");
+  //   newDonationPanelHeading.addClass("panel-heading");
+  //   var deleteBtn = $("<button>");
+  //   deleteBtn.text("x");
+  //   deleteBtn.addClass("delete btn btn-danger");
+  //   var editBtn = $("<button>");
+  //   editBtn.text("EDIT");
+  //   editBtn.addClass("edit btn btn-default");
+  //   editBtn.val(item.id);
+  //   var newDonationName = $("<h2>");
+  //   var newDonationDate = $("<small>");
+  //   var newDonationCategory = $("<h5>");
+  //   newDonationCategory.text("Category: " + donation.category);
+
+  //   var newDonationPanelBody = $("<div>");
+  //   newDonationPanelBody.addClass("panel-body");
+  //   var newDonationDescription = $("<p>");
+  //   newDonationName.text(donation.name + " ");
+  //   newDonationDesc.text(donation.description);
+  //   var formattedDate = new Date(donation.createdAt);
+  //   formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
+  //   newDonationDate.text(formattedDate);
+  //   newDonationName.append(newDonationDate);
+  //   newDonationPanelHeading.append(deleteBtn);
+  //   newDonationPanelHeading.append(editBtn);
+  //   newDonationPanelHeading.append(newDonationName);
+  //   newDonationPanelHeading.append(newCategory);
+  //   newDonationPanelBody.append(newDonationDescription);
+  //   newDonationPanel.append(newDonationPanelHeading);
+  //   newDonationPanel.append(newDonationPanelBody);
+  //   newDonationPanel.data("donation", donation);
+  //   return newDonationPanel;
+  // }
 
 
   // Getting jQuery references to the name, description, image, form, and category select
@@ -101,7 +151,7 @@ $(document).ready(function () {
 
   //===========================Click Event - Submit Form==========================
   // contains logic for new donation and update existing donation
-  $(donationForm).on("submit", function handleFormSubmit(event) {
+  $('#donation-form').on("submit", function handleFormSubmit(event) {
     console.log('clicked form submit');
     event.preventDefault();
     // Wont submit the donation if we are missing a name or description
