@@ -24,9 +24,9 @@ $(document).ready(function () {
   var myDonationsContainer = $(".donations-container");
   
   // Click events for donation edit and delete buttons -call edit/deleted functions
-  $(document).on("click", "button.delete", handleDonationDelete);
+  $(document).on("click", "a.donationDelete", handleDonationDelete);
   // ***clicking edit will fire modal form
-  $(document).on("click", "button.edit", handleDonationEdit);
+  $(document).on("click", "a.donationEdit", handleDonationEdit);
 
   // hold individual items
   var donations;
@@ -69,10 +69,10 @@ $(document).ready(function () {
   // need to work in image thumbnail
   //===========================================
   function createNewDonationRow(donation) {
-    console.log(donation);
-    console.log(donation.id);
+    console.log("donation object " + donation);
+    console.log("donation id " + donation.id);
 
-      $('.donations-container').append(`
+     var $newDonationRow =  $('.donations-container').append(`
           <article class="media">
           <div class="media-left">
             <figure class="image is-64x64">
@@ -89,20 +89,23 @@ $(document).ready(function () {
             </div>
             <nav class="level">
               <div class="level-left">
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fa fa-edit" data="${donation.id}></i></span>Edit
+                <a class="level-item donationEdit" data="${donation.id}">
+                  <span class="icon is-small"><i class="edit fa fa-edit" ></i></span>Edit
                 </a>
                 <!-- <p>Edit</p> -->
               </div>
               <div class="level-right">
-                  <a class="level-item">
-                    <span class="icon is-small"><i class="fa fa-trash" data="${donation.id}></i></span>Delete
-                  </a>
-                </div>
+              <a class="level-item donationDelete" data="${donation.id}">
+                <span class="icon is-small"><i class="fa fa-trash"></i></span>Delete
+              </a>
+            </div>
             </nav>
           </div>
         </article>
       `); 
+      $newDonationRow.find("a.donationDelete").data("id", donation.id);
+      $newDonationRow.find("a.donationEdit").data("id", donation.id);
+      return $newDonationRow;
   };
 
   // Getting jQuery references to the name, description, image, form, and category select
@@ -117,9 +120,9 @@ $(document).ready(function () {
   // contains logic for new donation and update existing donation
   donationForm.on("submit", function handleFormSubmit(event) {
     console.log('clicked form submit');
-    console.log(nameInput.val() );
-    console.log(descriptionInput.data() );
-    console.log(donationCategorySelect.val() );
+    console.log("name " + nameInput.val() );
+    console.log("desc " + descriptionInput.val() );
+    console.log("category id " + donationCategorySelect.val() );
 
     event.preventDefault();
     // Wont submit the donation if we are missing a name or description
@@ -142,7 +145,7 @@ $(document).ready(function () {
     // If we're updating a donation run updateDonation
     // Otherwise run submitDonation to create a new donation
     if (updating) {
-      newDonation.id = id;
+      newDonation.id = donation.id;
       updateDonation(newDonation);
     }
     else {
@@ -155,12 +158,14 @@ $(document).ready(function () {
 
   // ===========================NEW DONATION==============================
 
-  // Submits a new donation
+  // Submit a new donation
   function submitDonation(Donation) {
     console.log("function submitDonation is running");
-    $.post("/api/donations/", Donation, function() {
+    $.post("/api/donations", Donation, function() {
       // call getDonations to print all user donations to DOM
       getDonations();
+      nameInput.val("");
+      descriptionInput.val("");
     });
   }
   // ======================END - NEW DONATION========================
@@ -169,27 +174,24 @@ $(document).ready(function () {
   //==========================UPDATE DONATION========================
   // figure out donation id we want to edit 
   function handleDonationEdit() {
-    var currentDonation = $(this)
-      .parent()
-      .parent()
-      .data("donation");
-      getDonationData(currentDonation.id);
-      //window.location.href = "#";
-      //not sending to a new window - we're firing the modal form
-      //window.location.href = "/cms?item_id=" + currentItem.id;
+    console.log(this);
+    console.log($(this).data("id"));
+    var editThisDonationId = $(this).data("id");
+    getDonationData(editThisDonationId);
+     
   }
 
   // Gets donation data if we're editing
   function getDonationData(id) {
     $.get("/api/donations/" + id, function(data) {
       if (data) {
-        // If this post exists, prefill our forms with its data
-        donationNameInput.val(data.name);
+        console.log("this is the donation to update" + data);
+        // If this donation exists, prefill our forms with its data
+        nameInput.val(data.name);
         descriptionInput.val(data.description);
-        donationCategorySelect.val(data.category);
-        imgUpload //??????????????????????????
-        // If we have a donation with this id, set a flag for us to know to update
-        // when we hit submit
+        donationCategorySelect.val(data.item_categoryID);
+        //imgUpload //??????????????????????????
+       
         updating = true;
       }
     });
@@ -199,11 +201,13 @@ $(document).ready(function () {
   function updateDonation(item) {
     $.ajax({
       method: "PUT",
-      url: "/api/donations/:uid",
+      url: "/api/donations/:" + id,
       data: item
     })
     .then(function() {
       getDonations();
+      nameInput.val("");
+      descriptionInput.val("");
     });
   }
   //========================== END - UPDATE DONATION========================
@@ -213,11 +217,14 @@ $(document).ready(function () {
   // figure out which donation we want to delete and then calls
   // deleteDonation
   function handleDonationDelete() {
-    var currentDonation = $(this)
-      .parent()
-      .parent()
-      .data("donation");
-    deleteDonation(currentDonation.id);
+    console.log(this);
+    console.log($(this).data("id"));
+    var deleteThisDonationId = $(this).data("id");
+    
+             //.parent()
+        //  .parent()
+        //  .data("donation");
+    deleteDonation(deleteThisDonationId);
   }
 
   // This function does an API call to delete donation
