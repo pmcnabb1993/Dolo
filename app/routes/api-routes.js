@@ -28,9 +28,20 @@ module.exports = function(app) {
     app.get("/api/donations", function(req, res) {
       db.Donation.findAll({
         where: {
- donation-creation-Darren
-          uid: req.user.id
+          uid: 3
+          //uid: req.user.id
+        }
+      })
+      .then(function(dbDonation) {
+        res.json(dbDonation);
+      });
+    });
 
+    // Get rotue for retrieving a donation to edit
+    app.get("/api/donations/:id", function(req, res) {
+      db.Donation.findOne({
+        where: {
+          id: req.params.id
         }
       })
       .then(function(dbDonation) {
@@ -44,6 +55,7 @@ module.exports = function(app) {
         name: req.body.name,
         description: req.body.description,
         //uid: req.body.uid,
+        uid: 3,
         item_categoryID: req.body.item_categoryID,
         type: req.body.type
       }).then(dbDonation=>res.json(dbDonation))
@@ -128,7 +140,7 @@ module.exports = function(app) {
     db.Request.findById(req.params.id).then(data=>res.json(data));
   });
 
-  // DELETE route for deleting requet
+  // DELETE route for deleting request
   app.delete("/api/requests/:id", function(req, res) {
     db.Request.destroy({
       where: {
