@@ -23,6 +23,21 @@ module.exports = function (app) {
         res.sendFile(path.join(__dirname, "../public/donate.html"));
     });
 
+     // route loads donation-search.html
+     app.get("/donations-search", function (req, res) {
+        res.sendFile(path.join(__dirname, "../public/donation-search.html"));
+    });
+
+        // route loads organization.html
+        app.get("/organization", function (req, res) {
+            res.sendFile(path.join(__dirname, "../public/organization.html"));
+        });
+    
+         // route loads organization-search.html
+         app.get("/organization-search", function (req, res) {
+            res.sendFile(path.join(__dirname, "../public/organization-search.html"));
+        });
+
     // route loads requests.html
     app.get("/requests", function (req, res) {
         res.sendFile(path.join(__dirname, "../public/requests.html"));

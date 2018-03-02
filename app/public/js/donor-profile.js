@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-
-  //Greg's latest
   //================DONOR PROFILE DATA TO POPULATE DOM ============================================
   //===============================================================================================
 
@@ -151,7 +149,7 @@ $(document).ready(function () {
     // Otherwise run submitDonation to create a new donation
     if (updating) {
 
-      console.log("donation ID = " +currentId);
+      console.log("donation ID = " + currentId);
       updateDonation(newDonation);
     }
     else {
@@ -190,7 +188,7 @@ $(document).ready(function () {
 
   // Gets donation data if we're editing
   function getDonationData(id) {
-    console.log("Updating ID # id "+ id);
+    console.log("Updating ID # id " + id);
     $.get("/api/donations/" + id, function(data) {
       if (data) {
         console.log("this is the donation to update" + data);
