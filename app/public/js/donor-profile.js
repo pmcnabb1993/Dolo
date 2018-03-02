@@ -136,7 +136,7 @@ $(document).ready(function () {
     var newDonation = {
       name: nameInput.val(),
       description: descriptionInput.val(),
-      item_categoryID: donationCategorySelect.val(),
+      item_categoryID: parseInt(donationCategorySelect.val()),
       type: "material",
       id: currentId
       //image: imgUpload //??????????????????????????
