@@ -40,8 +40,14 @@ module.exports = function(app) {
     app.get("/api/donations/:item_categoryID", function(req, res) {
       db.Donation.findAll({
         where: {
+
+          //item_categoryID: 2
+          //item_categoryID: req.body.item_categoryID
+
+
           item_categoryID: req.body.item_categoryID,
-          uid: req.user.id
+          //uid: req.user.id
+
         }
       })
       .then(function(dbDonation) {
@@ -117,9 +123,9 @@ module.exports = function(app) {
 
   // GET route for returning Organizatiions of a specific category
   app.get("/api/requests/:item_categoryID", function(req, res) {
-    db.Requets.findAll({
+    db.Request.findAll({
       where: {
-        category: req.params.item_categoryID
+        item_categoryID: req.params.item_categoryID
       }
     })
     .then(function(dbRequest) {
@@ -127,17 +133,30 @@ module.exports = function(app) {
     });
   });
 
+  // Get route for retrieving a request to edit
+  app.get("/api/requests/:id", function(req, res) {
+    db.Request.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(function(dbRequest) {
+      res.json(dbRequest);
+    });
+  });
+
+
   //CREATE Request
   app.post("/api/requests", function(req, res) {
-    console.log(req.body)
     db.Request.create({
       name: req.body.name,
       description: req.body.description,
-      uid: req.body.uid,
+       //uid: req.body.uid,
+       uid: 3,
       item_categoryID: req.body.item_categoryID,
       type: req.body.type
     }).then(dbRequest=>res.json(dbRequest))
-    .catch(err=>res.json(err));
+    //.catch(err=>res.json(err));
   });
 
   // PUT route for updating request

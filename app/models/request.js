@@ -32,7 +32,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     type: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         isIn: [['material', 'service']]
       }
@@ -43,6 +43,7 @@ module.exports = function(sequelize, DataTypes) {
         // associations defined here
         models.Request.hasOne(models.Item_Category);
         models.Item_Category.belongsTo(models.Request);
+        
       }
     } 
   });
