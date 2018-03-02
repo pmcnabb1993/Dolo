@@ -189,7 +189,10 @@
                       </nav>
                     </div>
                   </article>
-                  <article class="media">
+
+                  <!-- dynamically load in user's donations -->
+                  <div class="requests-container">   </div>
+                  <!-- <article class="media">
                       <div class="media-content">
                         <div class="content">
                           <p>
@@ -203,7 +206,7 @@
                             <a class="level-item">
                               <span class="icon is-small"><i class="fa fa-edit"></i></span>Edit
                             </a>
-                            <!-- <p>Edit</p> -->
+                            
                           </div>
                           <div class="level-right">
                               <a class="level-item">
@@ -212,103 +215,9 @@
                             </div>
                         </nav>
                       </div>
-                    </article>
-                    <article class="media">
-                        <div class="media-content">
-                          <div class="content">
-                            <p>
-                              <strong>Needed Item:</strong> <small>Fridge</small><small style="float:right;">5m</small>
-                              <br>
-                              <small>In need of a new refridgerator. It donesn't matter how old it is as long as it's in good condition.</small>
-                            </p>
-                          </div>
-                          <nav class="level">
-                            <div class="level-left">
-                              <a class="level-item">
-                                <span class="icon is-small"><i class="fa fa-edit"></i></span>Edit
-                              </a>
-                              <!-- <p>Edit</p> -->
-                            </div>
-                            <div class="level-right">
-                                <a class="level-item">
-                                  <span class="icon is-small"><i class="fa fa-trash"></i></span>Delete
-                                </a>
-                              </div>
-                          </nav>
-                        </div>
-                      </article>
-                      <article class="media">
-                          <div class="media-content">
-                            <div class="content">
-                              <p>
-                                <strong>Needed Item:</strong> <small>Couch</small><small style="float:right;">5m</small>
-                                <br>
-                                <small>Looking for a couch in any color or size.</small>
-                              </p>
-                            </div>
-                            <nav class="level">
-                              <div class="level-left">
-                                <a class="level-item">
-                                  <span class="icon is-small"><i class="fa fa-edit"></i></span>Edit
-                                </a>
-                                <!-- <p>Edit</p> -->
-                              </div>
-                              <div class="level-right">
-                                  <a class="level-item">
-                                    <span class="icon is-small"><i class="fa fa-trash"></i></span>Delete
-                                  </a>
-                                </div>
-                            </nav>
-                          </div>
-                        </article>
-                        <article class="media">
-                            <div class="media-content">
-                              <div class="content">
-                                <p>
-                                  <strong>Needed Item:</strong> <small>Lamp</small><small style="float:right;">10m</small>
-                                  <br>
-                                  <small>In need of a tall floor lamp.</small>
-                                </p>
-                              </div>
-                              <nav class="level">
-                                <div class="level-left">
-                                  <a class="level-item">
-                                    <span class="icon is-small"><i class="fa fa-edit"></i></span>Edit
-                                  </a>
-                                  <!-- <p>Edit</p> -->
-                                </div>
-                                <div class="level-right">
-                                    <a class="level-item">
-                                      <span class="icon is-small"><i class="fa fa-trash"></i></span>Delete
-                                    </a>
-                                  </div>
-                              </nav>
-                            </div>
-                          </article>
-                       <article class="media">
-                            <div class="media-content">
-                              <div class="content">
-                                <p>
-                                  <strong>Needed Item:</strong> <small>Kitchen Table Set</small><small style="float:right;">1m</small>
-                                  <br>
-                                  <small>Looking for a table and four chairs. Wanting something as study as possible.</small>
-                                </p>
-                              </div>
-                              <nav class="level">
-                                <div class="level-left">
-                                  <a class="level-item">
-                                    <span class="icon is-small"><i class="fa fa-edit"></i></span>Edit
-                                  </a>
-                                  <!-- <p>Edit</p> -->
-                                </div>
-                                <div class="level-right">
-                                    <a class="level-item">
-                                      <span class="icon is-small"><i class="fa fa-trash"></i></span>Delete
-                                    </a>
-                                  </div>
-                              </nav>
-                            </div>
-                        </article>
+                    </article> -->
+                    
+                        
                       <!-- End table -->
                      </div>
                 </div>
@@ -316,7 +225,7 @@
 
             <!-- Post box -->
               <div class="column is-3">
-                <div class="card is-fullwidth" id="donation-form">
+                <div class="card is-fullwidth" id="request-form">
                     <header class="card-header hero is-info">
                       <p class="card-header-title has-text-white">
                           Post New Request
@@ -328,7 +237,7 @@
                               <label class="label">Need</label>
                               <div class="control">
 
-                                <input class="input" type="text" id="donation-name" placeholder="Item Name">
+                                <input class="input" type="text" id="request-name" placeholder="Item Name">
 
                               </div>
                             </div>
@@ -338,13 +247,13 @@
                                     <label class="label">Category</label>
                                     <div class="control">
                                       <div class="select">
-                                        <select class="form-control" id="donation-category">
-                                            <option value="Clothes">Clothes</option>
-                                            <option value="Kitchen">Food</option>
-                                            <option value="Furniture">Furniture</option>
-                                            <option value="Containers">Clothes</option>
-                                            <option value="Bedding">Food</option>
-                                            <option value="Electronics">Furniture</option>
+                                        <select class="form-control" id="request-category">
+                                            <option value="1">Clothes</option>
+                                            <option value="2">Food</option>
+                                            <option value="3">Furniture</option>
+                                            <option value="4">Clothes</option>
+                                            <option value="5">Food</option>
+                                            <option value="6">Furniture</option>
                                         </select>
                                       </div>
                                     </div>
@@ -353,7 +262,7 @@
                               <div class="field">
                                   <label class="label">Description</label>
                                     <div class="control">
-                                      <textarea class="textarea" id="donation-desc" placeholder="Textarea"></textarea>
+                                      <textarea class="textarea" id="request-description" placeholder="Textarea"></textarea>
                                     </div>
                                 </div>
                             <!-- image -->
@@ -361,7 +270,7 @@
                                 <label class="label">Upload Image</label>
                                 <div class="file has-name is-small is-info">
                                     <label class="file-label">
-                                      <input class="file-input" type="file" id="donation-image" name="resume">
+                                      <input class="file-input" type="file" id="request-image" name="resume">
                                       <span class="file-cta">
                                         <span class="file-icon">
                                           <i class="fa fa-upload"></i>
@@ -386,14 +295,7 @@
                             <span id="signin">Post</span>
                           </a>
                         </div>
-                        <div class="row">
-                          <div class="col-md-12 donations-container">
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12 requests-container">
-                          </div>
-                        </div>
+                       
                       </div>
                 </div>
               </div>

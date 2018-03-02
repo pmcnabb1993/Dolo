@@ -231,9 +231,6 @@ $(document).ready(function () {
     console.log($(this).attr("data"));
     var deleteThisDonationId = $(this).attr("data");
     
-             //.parent()
-        //  .parent()
-        //  .data("donation");
     deleteDonation(deleteThisDonationId);
   }
 

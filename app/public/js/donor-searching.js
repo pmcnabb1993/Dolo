@@ -15,7 +15,7 @@ $(document).ready(function () {
   var orgRequestsContainer = $(".requests-container");
 
   // Org category user selects from dropdown
-  var orgCategorySelect = $("#category");
+  var orgCategorySelect = $("#org-category");
 
   // call function handleOrgCategoryChange on category change
   orgCategorySelect.on("change", handleOrgCategoryChange);
@@ -25,7 +25,8 @@ $(document).ready(function () {
 
   // This function handles reloading new requests/needs when Org category changes
     function handleOrgCategoryChange() {
-      var newOrgCategory = $(this).val();
+      console.log("is this a category? " + ($(this).val()));
+      var newOrgCategory = ($(this).val());
       getRequests(newOrgCategory);
     }
   });
@@ -33,14 +34,12 @@ $(document).ready(function () {
   // grabs Org requests/needs by category from database and updates the view
   //***Needs to be by catergoryID***
   // if there are none, call displayEmptyRequests to show message to user
-  function getRequests(category) {
-    var categoryString = category || "";
-    if (categoryString) {
-      categoryString = "/category/" + categoryString;
-    }
-    $.get("/api/requests" + categoryString, function (data) {
-      console.log("Requests", data);
+  function getRequests(categoryID) {
+    $.get("/api/requests/:" + categoryID, function (data) {
+      console.log("Requests: ", data);
       requests = data;
+      console.log(requests);
+
       if (!requests || !requests.length) {
         displayEmptyRequests();
       }
@@ -51,7 +50,6 @@ $(document).ready(function () {
   }
 
   // initializeRequestsRows handles appending all of our constructed requests/needs HTML inside
-  // orgNeedsContainer
   function initializeRequestsRows() {
     orgNeedsContainer.empty();
     var requestsToAdd = [];
@@ -67,45 +65,64 @@ $(document).ready(function () {
   // Need 'Claim It!' button
   //===========================================
   function createNewRequestRow(request) {
-    var newRequestPanel = $("<div>");
-    newRequestPanel.addClass("panel panel-default");
-    var newRequestPanelHeading = $("<div>");
-    newRequestPanelHeading.addClass("panel-heading");
-    var deleteBtn = $("<button>");
-    deleteBtn.text("x");
-    deleteBtn.addClass("delete btn btn-danger");
-    var editBtn = $("<button>");
-    editBtn.text("EDIT");
-    editBtn.addClass("edit btn btn-default");
-    var newRequestName = $("<h2>");
-    var newRequestDate = $("<small>");
-    var newRequestCategory = $("<h5>");
-    newRequestCategory.text("Category: " + request.category);
-    newRequestCategory.css({
-      float: "right",
-      "font-weight": "700",
-      "margin-top":
-        "-15px"
-    });
-    var newRequestPanelBody = $("<div>");
-    newRequestPanelBody.addClass("panel-body");
-    var newRequestDescription = $("<p>");
-    newRequestName.text(request.name + " ");
-    newRequestDesc.text(request.description);
-    var formattedDate = new Date(request.createdAt);
-    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
-    newRequestDate.text(formattedDate);
-    newRequestName.append(newRequestDate);
-    newRequestPanelHeading.append(deleteBtn);
-    newRequestPanelHeading.append(editBtn);
-    newRequestPanelHeading.append(newRequestName);
-    newRequestPanelHeading.append(newCategory);
-    newRequestPanelBody.append(newRequestDescription);
-    newRequestPanel.append(newRequestPanelHeading);
-    newRequestPanel.append(newRequestPanelBody);
-    newRequestPanel.data("request", request);
-    return newRequestPanel;
-  }
+  
+    console.log("donation object " + request);
+    console.log("donation id " + request.id);
+
+     var $newRequestRow =  $('#available-requests-container').append(`
+          
+     <div class="card">
+        <header class="card-header">
+           <a href="#" class="card-header-icon" aria-label="more options">
+              <span class="icon">
+                 <i class="fa fa-angle-down" aria-hidden="true"></i>
+              </span>
+          </a>
+       </header>
+          <div class="card-image">
+              <figure class="image">
+                <img src="assets/img/habitat.jpg" alt="">
+              </figure>
+          </div>
+          <div class="card-content">
+            <div class="content">
+                <h2 class="org-name">Austin Habitat For Humanity</h2>
+                   <strong class="is left">Requested Item: </strong>
+                   <p>Kitchen Table and chairs</p>
+                      </div>
+                     </div>
+                  <footer class="card-footer">
+                   <a class="card-footer-item">Respond</a>
+                  </footer>
+                  </div>  
+     
+    <!--     
+     <article class="media">
+          <div class="media-left">
+            <figure class="image is-64x64">
+              <img src="http://placehold.it/128x128" alt="Image">
+            </figure>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Item:</strong> <small>${request.name}</small><small style="float:right;">1m</small>
+                <br>
+                <small>${request.description}</small>
+              </p>
+            </div>
+            <nav class="level">
+                <div class="level-right">
+                   <a class="button is-small is-info" id="request-category" href="#">Contact</a>
+                 </div>
+            </nav>
+
+          </div>
+        </article>  -->
+      `); 
+    
+      return $newRequestRow;
+  };
 
 
   // displays a message when there are no requests/needs to list on the DOM
@@ -113,7 +130,7 @@ $(document).ready(function () {
     orgRequestsContainer.empty();
     var messageOrg = $("<h2>");
     messageOrg.css({ "text-align": "center", "margin-top": "50px" });
-    messageOrg.html("Find a local organization in need. Search by category above.");
+    messageDonor.html("Sorry, there are no requests available in this category. Choose another!");
     orgRequestsContainer.append(messageOrg);
   }
 
