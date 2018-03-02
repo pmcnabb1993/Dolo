@@ -8,6 +8,6 @@ module.exports = function(req, res, next)  {
     }
 
     //If the user isn't logged in, restrict them to the home page
-    return res.redirect("/");
+    return res.redirect("/index.html");
 };
 

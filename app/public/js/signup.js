@@ -43,7 +43,7 @@ $(document).ready(function()    {
         zipInput.val("");
     });
 
-    //Does a post to the signup route. If successful, we are redirected to the members page
+    //Does a post to the signup route. If successful, we are redirected to the login page
     //Otherwise we log any errors
     function signUpUser(userData)    {
         $.post("/api/users", {

@@ -28,8 +28,7 @@ module.exports = function(app) {
     app.get("/api/donations", function(req, res) {
       db.Donation.findAll({
         where: {
-          uid: 3
-          //uid: req.user.id
+          uid: req.user.id
         }
       })
       .then(function(dbDonation) {
@@ -41,8 +40,13 @@ module.exports = function(app) {
     app.get("/api/donations/:item_categoryID", function(req, res) {
       db.Donation.findAll({
         where: {
-          item_categoryID: 2
+
+          //item_categoryID: 2
           //item_categoryID: req.body.item_categoryID
+
+
+          item_categoryID: req.body.item_categoryID,
+          //uid: req.user.id
 
         }
       })
@@ -68,8 +72,7 @@ module.exports = function(app) {
       db.Donation.create({
         name: req.body.name,
         description: req.body.description,
-        //uid: req.body.uid,
-        uid: 3,
+        uid: req.user.id,
         item_categoryID: req.body.item_categoryID,
         type: req.body.type
       }).then(dbDonation=>res.json(dbDonation))
@@ -189,20 +192,14 @@ module.exports = function(app) {
   //===================================================================
 
     //Using the passport.authenticate middleware with our local strategy.
-    //If the user has valid login, they will be sent to the member page
+    //If the user has valid login, they will be sent to the donations page
     //Otherwise the user will be given an error
-  //   app.post("/api/login", passport.authenticate("local"), function(req, res) {
-  //     //Since we are doing a post with javascript, we can't actually redirect that post into a GET request
-  //     //So we're the user back the route to the members page because the redirect will happen on the front end
-  //     //They won't get this or even be able to access this if they authenticated
-  //     res.json("./members.js")
-  // });
   
   app.post("/api/login", passport.authenticate("local"), function(req, res) {
     // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
-    // So we're sending the user back the route to the members page because the redirect will happen on the front end
+    // So we're sending the user back the route to the donations page because the redirect will happen on the front end
     // They won't get this or even be able to access this page if they aren't authed
-    res.json("/members");
+    res.json("/donations");
   });
 
   app.post("/api/users", function(req, res) {
@@ -218,20 +215,24 @@ module.exports = function(app) {
       state: req.body.state,
       zip: req.body.zip,
       orgId: req.body.orgId
-    }).then(dbUser=>res.json(dbUser))
-    // res.redirect(307, "/api/login"); May need to be wrapped in a function
+    }).then(function(err) {
+      dbUser=>res.json(dbUser)
+      res.redirect(307, "/api/login");
+    }).catch(function(err)  {
+      console.log(err);
+      res.json(err);
+    })
 
-    .catch(err=>res.json(err));
+    
   });
 
 
       //Route for logging user out
       app.get("/logout", function(req, res)   {
         req.session.destroy(err => {
-          res.redirect("/");
+          res.redirect("/index");
         });
 
-        // req.logout();
     });
 
     // Route for getting some data about our user to be used client side
@@ -254,13 +255,6 @@ module.exports = function(app) {
       });
     }
   });
-    
-
-  //Route for logging user out
-//   app.get("/logout", function(req, res)   {
-//     req.logout();
-//     res.redirect("/");
-//   });
-
+  
 
 }
