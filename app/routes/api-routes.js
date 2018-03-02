@@ -194,8 +194,11 @@ module.exports = function(app) {
 
       //Route for logging user out
       app.get("/logout", function(req, res)   {
-        req.logout();
-        res.redirect("/");
+        req.session.destroy(err => {
+          res.redirect("/");
+        });
+
+        // req.logout();
     });
 
     // Route for getting some data about our user to be used client side

@@ -57,7 +57,7 @@ $(document).ready(function()    {
             zip: userData.zip
         }).then(function(data)  {
             console.log("This is our use data", data);
-            window.location.replace("/donations");
+            window.location.replace("/login");
             //If there's an error, handle it by throwing up an alert
         }).catch(handleLoginErr);
     }
