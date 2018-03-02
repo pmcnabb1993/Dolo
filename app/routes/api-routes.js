@@ -24,7 +24,7 @@ module.exports = function(app) {
     //   db.Donation.findAll({}).then(dbDonation=>res.json(dbDonation));
     // });
 
-    // GET route for returning all Donations of a specific categoryID
+    // GET route for returning all Donations of a specific user
     app.get("/api/donations", function(req, res) {
       db.Donation.findAll({
         where: {
@@ -37,7 +37,20 @@ module.exports = function(app) {
       });
     });
 
-    // Get rotue for retrieving a donation to edit
+    // GET route for returning all Donations by category
+    app.get("/api/donations/:item_categoryID", function(req, res) {
+      db.Donation.findAll({
+        where: {
+          item_categoryID: req.body.item_categoryID
+          //uid: req.user.id
+        }
+      })
+      .then(function(dbDonation) {
+        res.json(dbDonation);
+      });
+    });
+
+    // Get route for retrieving a donation to edit
     app.get("/api/donations/:id", function(req, res) {
       db.Donation.findOne({
         where: {
@@ -66,8 +79,14 @@ module.exports = function(app) {
     });
 
     // PUT route for updating Donation
-    app.put("/api/donations", function(req, res) {
-      db.Donation.update(req.body,
+    app.put("/api/donations/:id", function(req, res) {
+      console.log(req.params.id);
+      console.log(req.body);
+      db.Donation.update({
+        description: req.body.description,
+        name: req.body.name,
+        item_categoryID: req.body.item_categoryID
+      },
         {
           where: {
             id: req.body.id

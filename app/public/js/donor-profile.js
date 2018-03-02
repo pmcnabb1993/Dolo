@@ -25,11 +25,14 @@ $(document).ready(function () {
   
   // Click events for donation edit and delete buttons -call edit/deleted functions
   $(document).on("click", "a.donationDelete", handleDonationDelete);
-  // ***clicking edit will fire modal form
-  $(document).on("click", "a.donationEdit", handleDonationEdit);
+
+  // $(document).on("click", "a.donationEdit", handleDonationEdit);
+ $(document).on("click", "a.donationEdit", handleDonationEdit);
 
   // hold individual items
   var donations;
+  //fix later TODO
+  var currentId;
 
   // Sets a flag for whether or not we're updating a donation to be false initially
   var updating = false;
@@ -103,8 +106,9 @@ $(document).ready(function () {
           </div>
         </article>
       `); 
-      $newDonationRow.find("a.donationDelete").data("id", donation.id);
-      $newDonationRow.find("a.donationEdit").data("id", donation.id);
+      // $newDonationRow.find("a.donationDelete").data("id", donation.id);
+      
+      // $newDonationRow.find("a.donationEdit").data("id", donation.id);
       return $newDonationRow;
   };
 
@@ -135,7 +139,8 @@ $(document).ready(function () {
       name: nameInput.val(),
       description: descriptionInput.val(),
       item_categoryID: donationCategorySelect.val(),
-      type: "material"
+      type: "material",
+      id: currentId
       //image: imgUpload //??????????????????????????
     };
 
@@ -145,7 +150,8 @@ $(document).ready(function () {
     // If we're updating a donation run updateDonation
     // Otherwise run submitDonation to create a new donation
     if (updating) {
-      newDonation.id = donation.id;
+
+      console.log("donation ID = " +currentId);
       updateDonation(newDonation);
     }
     else {
@@ -156,8 +162,8 @@ $(document).ready(function () {
   //===========================END - Submit Form==========================
 
 
-  // ===========================NEW DONATION==============================
 
+  // ===========================NEW DONATION==============================
   // Submit a new donation
   function submitDonation(Donation) {
     console.log("function submitDonation is running");
@@ -171,18 +177,20 @@ $(document).ready(function () {
   // ======================END - NEW DONATION========================
 
 
+
   //==========================UPDATE DONATION========================
   // figure out donation id we want to edit 
   function handleDonationEdit() {
-    console.log(this);
-    console.log($(this).data("id"));
-    var editThisDonationId = $(this).data("id");
+    console.log($(this).attr("data"));
+    // var editThisDonationId = $(this).data("id");
+    var editThisDonationId = $(this).attr("data")
     getDonationData(editThisDonationId);
      
   }
 
   // Gets donation data if we're editing
   function getDonationData(id) {
+    console.log("Updating ID # id "+ id);
     $.get("/api/donations/" + id, function(data) {
       if (data) {
         console.log("this is the donation to update" + data);
@@ -190,6 +198,8 @@ $(document).ready(function () {
         nameInput.val(data.name);
         descriptionInput.val(data.description);
         donationCategorySelect.val(data.item_categoryID);
+        //donationID from backend get request
+        currentId = id;
         //imgUpload //??????????????????????????
        
         updating = true;
@@ -199,9 +209,11 @@ $(document).ready(function () {
 
   // Update a given donation, bring user to the donations page when done
   function updateDonation(item) {
+    console.log("ITEM is below");
+    console.log(item);
     $.ajax({
       method: "PUT",
-      url: "/api/donations/:" + id,
+      url: "/api/donations/:" + item.currentId,
       data: item
     })
     .then(function() {
@@ -217,9 +229,9 @@ $(document).ready(function () {
   // figure out which donation we want to delete and then calls
   // deleteDonation
   function handleDonationDelete() {
-    console.log(this);
-    console.log($(this).data("id"));
-    var deleteThisDonationId = $(this).data("id");
+    // console.log(this);
+    console.log($(this).attr("data"));
+    var deleteThisDonationId = $(this).attr("data");
     
              //.parent()
         //  .parent()
@@ -247,14 +259,9 @@ $(document).ready(function () {
     myDonationsContainer.empty();
     var messageDonor = $("<h2>");
     messageDonor.css({ "text-align": "center", "margin-top": "50px" });
-    messageDonor.html("Local organizations are in need!, click <a href='#'>here (fire 'add-item' modal) </a> to post a donation.");
+    messageDonor.html("Local organizations are in need! Post a donation.");
     myDonationsContainer.append(messageDonor);
   }
-
-
-
-
-
 
 
 });
