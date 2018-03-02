@@ -211,7 +211,7 @@ module.exports = function(app) {
       //Route for logging user out
       app.get("/logout", function(req, res)   {
         req.session.destroy(err => {
-          res.redirect("/");
+          res.redirect("/index");
         });
 
     });
@@ -236,13 +236,6 @@ module.exports = function(app) {
       });
     }
   });
-    
-
-  //Route for logging user out
-//   app.get("/logout", function(req, res)   {
-//     req.logout();
-//     res.redirect("/");
-//   });
-
+  
 
 }
