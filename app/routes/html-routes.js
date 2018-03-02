@@ -55,17 +55,17 @@ module.exports = function (app) {
 
     app.get("/signup", function (req, res) {
         console.log("Where hit the signup route");
-        //If the user already has an account send them to the members page
+        //If the user already has an account send them to the login page
         if (req.user) {
-            res.redirect("/donations");
+            res.redirect("/login");
         }
         res.sendFile(path.join(__dirname, "../public/signup.html"));
     });
 
     app.get("/login", function (req, res) {
-        //If the user already has an account send them to the members page
+        //If the user already has an account send them to the login page
         if (req.user) {
-            res.redirect("/members");
+            res.redirect("/donations");
         }
         res.sendFile(path.join(__dirname, "../public/login.html"));
     });
@@ -73,8 +73,8 @@ module.exports = function (app) {
     //Here we've added our isAuthenticated middleware to this route.
     //If a user who is logged in tries to access this route they will be redirected to the signup page
 
-    app.get("/members", isAuthenticated, function (req, res) {
-        res.sendFile(path.join(__dirname, "../public/member.html"));
+    app.get("/login", isAuthenticated, function (req, res) {
+        res.sendFile(path.join(__dirname, "../public/login.html"));
     });
 
     // route loads donations.html
