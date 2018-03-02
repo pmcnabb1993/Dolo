@@ -22,7 +22,7 @@ $(document).ready(function()    {
         passwordInput.val("");
     });
 
-    //loginUser does a post to our "api/login" route and if successful, redirects us to the members page
+    //loginUser does a post to our "api/login" route and if successful, redirects us to the donations page
     function loginUser (email, password)    {
         console.log("These are our credentials: ", email, password)
         $.post("/api/login", {
