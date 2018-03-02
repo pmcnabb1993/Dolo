@@ -25,38 +25,40 @@
     }
   </style>
 </head>
-
 <body>
-<!-- Navbar start -->
-<div class="hero-head is-light">
-        <nav class="navbar border-shadow">
-          <div class="container">
-            <div class="navbar-brand">
-                <a>
-                <img src="assets/img/dolo.png" id="dolo" alt="Logo">
-              </a>
-              <span class="navbar-burger burger" data-target="navbarMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-            </div>
-            <div id="navbarMenu" class="navbar-menu">
-              <div class="navbar-end">
-                <div class="navbar-item has-dropdown is-hoverable">
-                  <a class="navbar-item">
-                    Donate
-                   </a>
-                   <div class="navbar-dropdown">
-                      <a class="navbar-item" href="./donor.html">
-                        Donor Profile
-                      </a>
-                      <a class="navbar-item">
-                        Search Organizations
-                      </a>
-                    </div>
+
+  <!-- Navbar start -->
+  <div class="hero-head is-light">
+      <nav class="navbar border-shadow">
+        <div class="container">
+          <div class="navbar-brand">
+              <a class="logo" href="./index.html">
+              <img src="assets/img/dolo.png" id="dolo" alt="Logo">
+            </a>
+            <span class="navbar-burger burger" data-target="navbarMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+
+          <!-- Donation tab -->
+          <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-end">
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-item">
+                  Donate
+                 </a>
+                 <div class="navbar-dropdown">
+                    <a class="navbar-item" href="./donate.html">
+                      Donor Profile
+                    </a>
+                    <a class="navbar-item" href="./org-search.html">
+                      Search Organizations
+                    </a>
                   </div>
-              </div>
+                </div>
+            </div>
 
             <!-- Organization tab -->
             <div class="navbar">
@@ -68,29 +70,39 @@
                       <a class="navbar-item" href="./organization.html">
                         Org Profile
                       </a>
-                      <a class="navbar-item">
+                      <a class="navbar-item" href="./donation-search.html">
                         Search Donations
                       </a>
                     </div>
                   </div>
               </div>
 
-                <a class="navbar-item" href="./about.html">
-                  About Us
+          <!-- About tab -->
+              <a class="navbar-item" href="./about.html">
+                About Us
+              </a>
+              <span class="navbar-item">
+                <a class="button is-info is-outlined is-small" href="./login.html">
+                  <span class="icon">
+                      <i class="fa fa-sign-out" aria-hidden="true"></i>
+                  </span>
+                  <span id="signin">Sign In</span>
                 </a>
-                <span class="navbar-item">
-                  <a class="button is-info is-outlined is-small" href="./login.html">
-                    <span class="icon">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    </span>
-                    <span id="signin">Sign In</span>
-                  </a>
-                </span>
-              </div>
+              </span>
+              <span class="navbar-item">
+                <a class="button is-info is-outlined is-small" href="./index.html">
+                  <span class="icon">
+                      <i class="fa fa-sign-out" aria-hidden="true"></i>
+                  </span>
+                  <span id="signout">Sign Out</span>
+                </a>
+              </span>
             </div>
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
+    </div>
+    <!-- Navbar end -->
 
       
       <!-- Start Colums -->
@@ -104,12 +116,12 @@
       <form class="signup" id="signup">
       <div class="field is-horizontal">
             <div class="field-label is-normal">
-              <label class="label">Organization</label>
+              <label class="label">Organization*</label>
             </div>
             <div class="field-body">
               <div class="field">
                 <p class="control is-expanded has-icons-left">
-                  <input class="input" type="text" id="name-input" placeholder="Title">
+                  <input class="input is-success" type="text" id="name-input" placeholder="Title">
                   <span class="icon is-small is-left">
                     <i class="fa fa-users"></i>
                   </span>
@@ -119,12 +131,12 @@
             </div>
             <div class="field is-horizontal">
               <div class="field-label">
-                  <label class="label">Email</label>
+                  <label class="label">Email*</label>
                 </div>
               <div class="field-body">
                 <div class="field">
                 <p class="control is-expanded has-icons-left has-icons-right">
-                  <input class="input" type="email" id="email-input" placeholder="example@email.com">
+                  <input class="input is-success" type="email" id="email-input" placeholder="example@email.com">
                   <span class="icon is-small is-left">
                     <i class="fa fa-envelope"></i>
                   </span>
@@ -135,12 +147,12 @@
 
             <div class="field is-horizontal">
                 <div class="field-label">
-                    <label class="label">Password</label>
+                    <label class="label">Password*</label>
                   </div>
                 <div class="field-body">
                   <div class="field">
                   <p class="control is-expanded has-icons-left has-icons-right">
-                    <input class="input" type="password" id="password-input" placeholder="abc123!#$">
+                    <input class="input is-success" type="password" id="password-input" placeholder="abc123!#$">
                     <span class="icon is-small is-left">
                       <i class="fa fa-lock"></i>
                     </span>
@@ -212,12 +224,12 @@
 
                       <div class="field is-horizontal">
                           <div class="field-label is-normal">
-                            <label class="label">Zip</label>
+                            <label class="label">Zip*</label>
                           </div>
                           <div class="field-body">
                             <div class="field">
                               <p class="control is-expanded ">
-                                <input class="input" type="text" id="zip-input" placeholder="78701">
+                                <input class="input is-success" type="text" id="zip-input" placeholder="78701">
                               </p>
                             </div>
                             </div>
@@ -280,7 +292,8 @@
               </div>
             </div>
           </div>
-        
+          <p class="help has-text-success"><strong>* Fields in green are required</strong></p>
+        <br>
 
         <div class="field is-horizontal">
             <div class="control">
@@ -315,14 +328,8 @@
    
     <!-- End Left Column -->
     </div>
-   
-    
-
-
+  
     <script type="text/javascript" src="js/orgsignup.js"></script>
 
-
-
 </body>
-
 </html>
