@@ -4,17 +4,17 @@ var passport = require("../config/passport.js");
 module.exports = function(app) {
 
 
-  //CREATE ORG
-  app.post("/api/orgs", function(req, res) {
-    console.log(req.body)
-    db.Org.create({
-      name: req.body.name,
-      description: req.body.description,
-      web: req.body.web,
-      org_categoryID: req.body.org_categoryID
-    }).then(dbOrg=>res.json(dbOrg))
-    .catch(err=>res.json(err));
-  });
+  // //CREATE ORG
+  // app.post("/api/orgs", function(req, res) {
+  //   console.log(req.body)
+  //   db.Org.create({
+  //     name: req.body.name,
+  //     description: req.body.description,
+  //     web: req.body.web,
+  //     org_categoryID: req.body.org_categoryID
+  //   }).then(dbOrg=>res.json(dbOrg))
+  //   .catch(err=>res.json(err));
+  // });
 
   //======================Donation Routes========================
   //=============================================================
@@ -173,7 +173,7 @@ module.exports = function(app) {
   //===================================================================
 
     //Using the passport.authenticate middleware with our local strategy.
-    //If the user has valid login, they will be sent to the donations page
+    //If the user has valid login, they will be sent to the donations or organization page
     //Otherwise the user will be given an error
   
   app.post("/api/login", passport.authenticate("local"), function(req, res) {
@@ -181,6 +181,8 @@ module.exports = function(app) {
     // So we're sending the user back the route to the donations page because the redirect will happen on the front end
     // They won't get this or even be able to access this page if they aren't authed
     res.json("/donations");
+
+    //NEED IF statement here to send users to either /donations or /organization 
   });
 
   app.post("/api/users", function(req, res) {
@@ -203,10 +205,20 @@ module.exports = function(app) {
       console.log(err);
       res.json(err);
     })
-
-    
   });
 
+
+    //CREATE ORG
+    app.post("/api/orgs", function(req, res) {
+      console.log(req.body)
+      db.Org.create({
+        name: req.body.name,
+        description: req.body.description,
+        web: req.body.web,
+        org_categoryID: req.body.org_categoryID
+      }).then(dbOrg=>res.json(dbOrg))
+      .catch(err=>res.json(err));
+    });
 
       //Route for logging user out
       app.get("/logout", function(req, res)   {
