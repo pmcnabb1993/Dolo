@@ -192,7 +192,12 @@ $(document).ready(function () {
     $.get("/api/donations/" + id, function(data) {
       if (data) {
         console.log("this is the donation to update" + data);
+        
         // If this donation exists, prefill our forms with its data
+        console.log("name " + data.name );
+        console.log("desc " + data.description );
+        console.log("category id " + data.item_categoryID );
+
         nameInput.val(data.name);
         descriptionInput.val(data.description);
         donationCategorySelect.val(data.item_categoryID);
