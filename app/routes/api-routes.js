@@ -25,10 +25,11 @@ module.exports = function(app) {
     // });
 
     // GET route for returning all Donations of a specific user
-    app.get("/api/donations", function(req, res) {
+    app.get("/api/donations/", function(req, res) {
       db.Donation.findAll({
         where: {
-          uid: req.user.id
+          //uid: req.user.id
+          uid: 3
         }
       })
       .then(function(dbDonation) {
@@ -42,24 +43,9 @@ module.exports = function(app) {
         where: {
 
           //item_categoryID: 2
-          //item_categoryID: req.body.item_categoryID
-
-
           item_categoryID: req.body.item_categoryID,
           //uid: req.user.id
 
-        }
-      })
-      .then(function(dbDonation) {
-        res.json(dbDonation);
-      });
-    });
-
-    // Get route for retrieving a donation to edit
-    app.get("/api/donations/:id", function(req, res) {
-      db.Donation.findOne({
-        where: {
-          id: req.params.id
         }
       })
       .then(function(dbDonation) {
@@ -81,6 +67,20 @@ module.exports = function(app) {
       // .catch(err=>res.json(err));
 
     });
+
+    // Get route for retrieving a donation to edit
+    app.get("/api/donations/:id", function(req, res) {
+      db.Donation.findOne({
+        where: {
+          //id: req.body.id
+          id: req.params.id
+        }
+      })
+      .then(function(dbDonation) {
+        res.json(dbDonation);
+      });
+    });
+
 
     // PUT route for updating Donation
     app.put("/api/donations/:id", function(req, res) {
@@ -117,11 +117,24 @@ module.exports = function(app) {
   //===================================================================
 
   //GET route to return ALL requests/needs
-  app.get("/api/requests", function(req, res) {
-    db.Request.findAll({}).then(dbRequest=>res.json(dbRequest));
+  // app.get("/api/requests", function(req, res) {
+  //   db.Request.findAll({}).then(dbRequest=>res.json(dbRequest));
+  // });
+
+   // GET route for returning all Donations of a specific user
+   app.get("/api/requests/", function(req, res) {
+    db.Request.findAll({
+      where: {
+        //uid: req.user.id
+        uid: 2
+      }
+    })
+    .then(function(dbRequest) {
+      res.json(dbRequest);
+    });
   });
 
-  // GET route for returning Organizatiions of a specific category
+  // GET route for returning requests of a specific category
   app.get("/api/requests/:item_categoryID", function(req, res) {
     db.Request.findAll({
       where: {
