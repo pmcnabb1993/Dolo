@@ -28,8 +28,7 @@ module.exports = function(app) {
     app.get("/api/donations/", function(req, res) {
       db.Donation.findAll({
         where: {
-          //uid: req.user.id
-          uid: 3
+          uid: req.user.id
         }
       })
       .then(function(dbDonation) {
@@ -125,8 +124,8 @@ module.exports = function(app) {
    app.get("/api/requests/", function(req, res) {
     db.Request.findAll({
       where: {
-        //uid: req.user.id
-        uid: 2
+        uid: req.user.id
+        // uid: 2
       }
     })
     .then(function(dbRequest) {
