@@ -30,7 +30,8 @@ $(document).ready(function () {
   // hold individual items
   var donations;
   //fix later TODO
-  var currentId;
+  var currentId = req.user.id;
+
 
   // Sets a flag for whether or not we're updating a donation to be false initially
   var updating = false;
