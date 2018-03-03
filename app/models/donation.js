@@ -12,13 +12,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    uid: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Users',
-        key: 'id'
-      }
-    },
     item_categoryID: {
       type: DataTypes.INTEGER,
       references: {
@@ -26,9 +19,16 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
+    uid: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users',
+        key: 'id'
+      }
+    },
     type: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         isIn: [['material', 'service']]
       }
